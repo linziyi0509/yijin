@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>娱丸捞</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<!--<link rel="stylesheet" type="text/css" href="../css/app.css" />-->
+		<style>
+			.mui-plus .plus {
+				display: inline;
+			}
+			
+			.plus {
+				display: none;
+			}
+			
+			#topPopover {
+				position: fixed;
+				top: 16px;
+				right: 6px;
+			}
+			
+			#topPopover .mui-popover-arrow {
+				left: auto;
+				right: 6px;
+			}
+			
+			p {
+				text-indent: 22px;
+			}
+			
+			span.mui-icon {
+				font-size: 14px;
+				color: #007aff;
+				margin-left: -15px;
+				padding-right: 10px;
+			}
+			
+			.mui-popover {
+				height: 300px;
+			}
+			
+			.mui-content {
+				padding: 10px;
+			}
+			
+			.bank {
+				font-size: 11pt;
+				color: #fff !important;
+				padding-top: -5px !important;
+			}
+			
+			.mui-title {
+				font-size: 13pt;
+				color: #fff !important;
+			}
+			
+			header {
+				background: #0192ed !important;
+			}
+			
+			.mui-icon {
+				color: #fff !important;
+			}
+			.mui-content{
+				padding:0;
+			}
+			.mui-input-group{
+				margin-top:40px;
+			}
+			label img{
+				width:30px;
+				height:30px;
+				margin-top:-5px;
+			}
+			label{
+				width:60px !important;
+				height:50px;
+	/*			border:1px solid red;*/
+			}
+			.mui-input-clear{
+				margin-right:50px !important;
+			}
+			#slider{
+				background: #f7f7f8;
+			}
+			button{
+				width:90%;
+				height:50px;
+				margin-left:20px;
+				margin-top:10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span class="bank">返回</span></a>
+			<h1 class="mui-title">批量添加积分</h1>
+			<a id="icon-more"><span class="mui-icon mui-icon-home mui-pull-right"></span></a>
+		</header>
+
+		<div class="mui-content">
+			<div class="mui-content-padded" style="margin: 5px;">
+				<form class="mui-input-group">
+					<div class="mui-input-row">
+						<label><img src="img/3.gif" alt="" /></label>
+						<input type="text" class="mui-input-clear" placeholder="请输入兑换码">
+					</div>
+					<div class="mui-input-row">
+						<label><img src="img/3.gif" alt="" /></label>
+						<input type="text" class="mui-input-clear" placeholder="请输入兑换码">
+					</div>
+				</form>
+			</div>
+		</div>
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item" href="#item1mobile">
+						<span>点击添加一行</span>
+					</a>
+				</div>
+			</div>
+			<div class="mui-content-padded">
+				<button class="mui-btn mui-btn-danger">开始验证</button>
+			</div>
+		<script src="js/mui.min.js"></script>
+		<script>
+		</script>
+	</body>
+
+</html>

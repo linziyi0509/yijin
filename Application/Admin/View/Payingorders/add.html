@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>综合应用管理平台</title>
+   <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/css/css.css">
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.4.js"></script>
+	<script src="__PUBLIC__/layer/layer.js"></script> 
+	<script type="text/javascript" src="__PUBLIC__/easyui1.3/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/public.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/date.js"></script>
+	<script charset="utf-8" src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+	<script charset="utf-8" src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/checkform.js"></script>
+	<script>
+	var editor;
+	var n = 0;
+	KindEditor.ready(function(K) {
+	
+		
+		$('#myform').form({
+			url:'/admin/payingorders/saveadd',
+			onSubmit: function(){
+				$fly.load();
+			},
+			success:function(data){
+				$fly.disload();
+				parent.$('#mytable').datagrid('reload');
+				if (data == 'success') {
+					$fly.msg('添加成功');
+					parent.layer.closeAll();
+				} else{
+					$fly.msg(data);
+				}
+			}
+		});
+	});
+	
+	</script>
+</head>
+<body>
+<form id="myform" name="myform" method="post" action="" enctype="multipart/form-data">
+  <table width="99%" border="0" align="center" cellpadding="5" cellspacing="1" bgcolor="#F5F5F5">
+
+    <input type="hidden" id="wechatuserid"  name="wechatuserid" value="<?php echo $_GET['wechatuserid']?>"><tr><td width="11%" align="right" bgcolor="#FFFFFF">用户名：</td><td width="89%" bgcolor="#FFFFFF"><input name="username" type="text" id="username" size="80"   /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">手机号：</td><td width="89%" bgcolor="#FFFFFF"><input name="telephone" type="text" id="telephone" size="64" class="easyui-validatebox" required="true" validType="length[0,64]"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">积分：</td><td width="89%" bgcolor="#FFFFFF"><input name="credit" type="text" id="credit" size="10" class="easyui-validatebox" required="true" validType="length[0,10]"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">金额(元)：</td><td width="89%" bgcolor="#FFFFFF"><input name="money" type="text" id="money" size="" class="easyui-validatebox" required="true"   /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">订单状态：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $c34;?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">订单号：</td><td width="89%" bgcolor="#FFFFFF"><input name="ordernum" type="text" id="ordernum" size="80" class="easyui-validatebox" required="true" validType="length[0,128]"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">交易号：</td><td width="89%" bgcolor="#FFFFFF"><input name="batch" type="text" id="batch" size="80"   /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">是否异常：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $c46;?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">异常处理情况：</td><td width="89%" bgcolor="#FFFFFF"><textarea name="excepthandle" cols="80" rows="8"  id="excepthandle"></textarea></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">处理时间：</td><td width="89%" bgcolor="#FFFFFF"><input name="resulttime" type="text" id="resulttime" size="20" onclick="SelectDate(this,'yyyy-MM-dd hh:mm:ss')"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">支付方式：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $c41;?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">用户付款时的ip：</td><td width="89%" bgcolor="#FFFFFF"><input name="ipaddr" type="text" id="ipaddr" size="80"   /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">订单类型：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $c38;?></td></tr>
+    
+    <tr>
+      <td colspan="2" align="center" bgcolor="#FFFFFF"><input name="提交" type="submit" value="提交" class="submit">
+        <input type="reset" name="Submit2" value="重置" class="submit" />	
+		<input type="button" name="Submit" value="关闭" onClick="parent.layer.closeAll();" class="submit" />
+				</td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>	

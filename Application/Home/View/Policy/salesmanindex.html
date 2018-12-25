@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>营销员保单号兑换</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/gongyong.css">
+    <script src="__PUBLIC__/js/jquery-1.8.3.min.js"></script>
+    <script src="__PUBLIC__/layer2/layer.js"></script>
+    <style>
+        h5 {
+            margin: 5px 7px;
+        }
+        .mui-content{
+            padding-top:100px;
+            background:#f5f4f9;
+        }
+        a{
+            color:#ebeaef;
+        }
+        .mui-icon{
+            font-size:2.8rem;
+        }
+        .cont{
+            margin-left:45%;
+            margin-bottom:20px;
+        }
+        .mui-input-group{
+            margin-top:0.875rem;
+        }
+        .mui-input-row label {
+            font-family: 'Helvetica Neue',Helvetica,sans-serif;
+            line-height: 1.1;
+            float: left;
+            width: 7%;
+            padding: 11px 15px;
+        }
+        form{
+            margin-top:20px;
+            width:90%;
+            background: #f5f4f9 !important;
+        }
+        .mui-input-group{
+            margin:0 auto !important;
+        }
+        .mui-input-row label~input, .mui-input-row label~select, .mui-input-row label~textarea {
+            float: right;
+            width: 85%;
+            margin-bottom: 0;
+            padding-left: 0;
+            border: 0;
+        }
+        .mui-input-row{
+            border:2px solid #e9e8eb !important;
+            margin-top:10px;
+            position: static;
+            background: #FFFFFF !important;
+            width:96%;
+            margin-left:2%;
+        }
+        .img{
+            position: relative;
+            background: #FFFFFF !important;
+        }
+        .gif{
+            position: absolute;
+            right:0px;
+            width:92px;
+            height:40px;
+        }
+        .img button{
+            position: absolute;
+            right:0px;
+            background: #1e90ff;
+            color:#FFFFFF;
+            padding:10px;
+        }
+        .mui-btn-blue{
+            margin-top:20px;
+            width:96%;
+            height:50px;
+            border-radius:3px;
+            font-size:1.5rem;
+            background:grey;
+            margin-left:2%;
+        }
+    </style>
+</head>
+
+<body>
+<div class="mui-content">
+    <div class="cont">
+        <a id="icon-icon-contact"><span class="mui-icon mui-icon-contact"></span></a>
+    </div>
+    <div class="mui-input-row">
+        <label><img src="__PUBLIC__/images/code.gif" alt="" /></label>
+        <input type="text" name="idcard" placeholder="请输入身份证号">
+    </div>
+    <div class="mui-input-row">
+        <label><img src="__PUBLIC__/images/code.gif" alt="" /></label>
+        <input type="text" placeholder="请输入手机号" name="telephone">
+    </div>
+    <div class="mui-input-row">
+        <div class="img" id="imgcode">
+            <img src="{:U('Salesmaninfo/Verify')}" alt="" id="img" onclick="this.src='__URL__/verify/'+Math.random()" class="gif">
+        </div>
+        <label><img src="__PUBLIC__/images/code.gif" alt="" /></label>
+        <input type="text"  placeholder="验证码" name="code">
+    </div>
+    <div class="mui-input-row">
+        <div class="img">
+            <button id="btncode" value=""/>发送验证码</button>
+        </div>
+        <label><img src="__PUBLIC__/images/code.gif" alt="" /></label>
+        <input type="text"  placeholder="获取手机验证码" name="phonecode">
+    </div>
+    <button class="mui-btn-blue" id="btn" disabled="true">绑定成为营销员</button>
+</div>
+</div>
+<script src="__PUBLIC__/js/mui.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#btncode").click(function(){
+            var idcard = $("input[name='idcard']").val();
+            var telephone = $("input[name='telephone']").val();
+            var code = $("input[name='code']").val();
+            //验证保单号和手机号
+            if(!yzInfo(telephone)){
+                layer.alert("手机号有误",{icon: 2});
+                return false;
+            }
+            if(!code){
+                layer.alert("图形验证码有误",{icon: 2});
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                url: "{:U('Salesmaninfo/phonesms')}",
+                data: {idcard:idcard,telephone:telephone,code:code},
+                success: function(msg){
+                    if (msg.code == '200') {
+                        var time = 120;
+                        var phone_send = $("#btncode");
+                        $("#btncode").attr("disabled", true);
+                        phone_send.addClass("vg-phone-down");
+                        var set = setInterval(function() {
+                            time--;
+                            phone_send.text(time+"s重新发送");
+                            if(time == 0 ) {
+                                $("#btncode").attr("disabled", false);
+                                phone_send.removeClass("vg-phone-down").text("发送验证码");
+                                clearInterval(set);
+                            }
+                        }, 1000);
+                        $("#btn").attr("disabled", false);
+                        $("#btn").css("background", "blue");
+                    }else{
+                        resetyzm();
+                        layer.alert(msg.string,{icon: 2});
+                    }
+                }
+            });
+        });
+        $('#btn').click(function(){
+            var idcard = $("input[name='idcard']").val();
+            var telephone = $("input[name='telephone']").val();
+            var phonecode = $("input[name='phonecode']").val();
+            //验证保单号和手机号
+            if(!yzInfo(telephone)){
+                layer.alert("手机号有误",{icon: 2});
+                return false;
+            }
+            if(!phonecode){
+                layer.alert("短信验证码有误",{icon: 2});
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                url: "{:U('Salesmaninfo/index')}",
+                data: {idcard:idcard,telephone:telephone,phonecode:phonecode},
+                success: function(msg){
+                    if (msg.code == '200') {
+                        layer.alert('绑定成功！',{icon: 1});
+                        location.href="/home/Salesmaninfo/exchange";
+                    }else if(msg.code == '201') {
+                        layer.alert('已绑定微信！',{icon: 1});
+                        location.href="/home/Salesmaninfo/exchange";
+                    }else{
+                        resetyzm();
+                        layer.alert(msg.string,{icon: 2});
+                    }
+                }
+            });
+        });
+    });
+    /**
+     * @param policynumber
+     * @param salesmanphone
+     * @returns {boolean}
+     * 正则验证手机号
+     */
+    function yzInfo(salesmanphone){
+        if(/^1[345789]\d{9}$/.test(salesmanphone)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    //重置验证码
+    function resetyzm(){
+        var captcha_img = $('#imgcode').find('img');
+        var verifyimg = captcha_img.attr("src");
+        $("#img").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+			html {
+				background: #fff;
+			}
+			
+			.mui-plus .plus {
+				display: inline;
+			}
+			
+			.plus {
+				display: none;
+			}
+			
+			#topPopover {
+				position: fixed;
+				top: 16px;
+				right: 6px;
+			}
+			
+			#topPopover .mui-popover-arrow {
+				left: auto;
+				right: 6px;
+			}
+			
+			p {
+				text-indent: 22px;
+			}
+			
+			span.mui-icon {
+				font-size: 14px;
+				color: #007aff;
+				margin-left: -15px;
+				padding-right: 10px;
+			}
+			
+			.mui-popover {
+				height: 300px;
+			}
+			
+			.mui-content>.mui-table-view:first-child {
+				margin-top: 0px;
+			}
+			
+			.bank {
+				font-size: 11pt;
+				color: #fff !important;
+				padding-top: -5px !important;
+			}
+			
+			.mui-title {
+				font-size: 13pt;
+				color: #fff !important;
+			}
+			
+			header {
+				background: #393a3f !important;
+			}
+			
+			.mui-icon {
+				color: #fff !important;
+			}
+			
+			.mui-content {
+				padding: 0;
+			}
+			
+			.bank {
+				margin-left: 30px;
+			}
+			
+			.mui-h5 {
+				font-size: 20pt;
+				color: #26c425;
+				margin-left: -20px !important;
+			}
+			
+			.mui-table-view-cell:after {
+				width: 100% !important;
+				margin-left: -14px !important;
+			}
+			
+			.mui-table {
+				padding: 20px 10px;
+			}
+			
+			.mui-text-right {
+				width: 200px;
+				/*				brder:1px solid red;*/
+			}
+			
+			.mui-col-xs-10 h5 {
+				padding-top: 4px !important;
+			}
+			
+			.mui-h6 {
+				color: #000;
+			}

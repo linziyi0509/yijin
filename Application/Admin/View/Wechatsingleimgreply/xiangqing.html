@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>综合应用管理平台</title>
+   <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/css/css.css">
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.4.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/easyui1.3/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/public.js"></script>
+</head>
+<body>
+<form id="myform" name="myform" method="post" action="">
+  <table width="99%" border="0" align="center" cellpadding="5" cellspacing="1" bgcolor="#F5F5F5">
+    
+    <tr><td width="11%" align="right" bgcolor="#FFFFFF">关键词：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['keyword'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">标题：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['title'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">图文摘要：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['digest'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">封面状态：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['show_cover_pic'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">图文消息内容：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['content'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">原文地址：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['content_source_url'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">点击量：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['hits'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">图片地址：</td><td width="89%" bgcolor="#FFFFFF"><img src="<?php echo $result['img_url'];?>" width="100"></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">素材id：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['media_id'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">创建时间：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['createtime'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">修改时间：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['updatetime'];?></td></tr>
+    
+    <tr>
+      <td colspan="2" align="center" bgcolor="#FFFFFF"><input type="button" name="Submit" value="关闭" onclick="parent.layer.closeAll();" class="submit" /></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>	

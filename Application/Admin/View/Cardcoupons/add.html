@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>综合应用管理平台</title>
+   <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/css/css.css">
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.4.js"></script>
+	<script src="__PUBLIC__/layer/layer.js"></script> 
+	<script type="text/javascript" src="__PUBLIC__/easyui1.3/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/public.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/date.js"></script>
+	<script charset="utf-8" src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+	<script charset="utf-8" src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/checkform.js"></script>
+	<script>
+	var editor;
+	var n = 0;
+	KindEditor.ready(function(K) {
+		//验证servicevoucherid 一定不能为空
+		$('#myform').form({
+			url:'/admin/cardcoupons/saveadd',
+			onSubmit: function(){
+				var chk_value =[];
+				var num_value =[];
+				var flag = false;
+				$('input[name="servicevoucherid[]"]:checked').each(function(){
+					chk_value.push($(this).val());
+					if($('input[name="num'+$(this).val()+'"]').val() == ''){
+						flag = true;
+					}
+					num_value.push($('input[name="num'+$(this).val()+'"]').val());
+				});
+				if(chk_value.length!=0) {
+					if(num_value.length!=0 && !flag){
+						$('#servicevoucherids').val($('input[name="servicevoucherid[]"]:checked').map(function(){return this.value}).get().join(','));
+						$fly.load();
+					}else{
+						$fly.msg('请输入服务券对应数量');
+						return false;
+					}
+				}else{
+					$fly.msg('请选择服务券');
+					return false;
+				}
+			},
+			success:function(data){
+				$fly.disload();
+				parent.$('#mytable').datagrid('reload');
+				if (data == 'success') {
+					$fly.msg('添加成功');
+					parent.layer.closeAll();
+				} else{
+					$fly.msg(data);
+				}
+			}
+		});
+	});
+	function doSearch() {
+		$.ajax({
+			url: '/admin/servicevoucher/list_page',
+			data: {
+				name: $('#searchname').val(),
+				starttime: $("input[name='searchstarttime']").val(),
+				endtime: $("input[name='searchendtime']").val(),
+				page:1,
+				rows:100
+			},
+			type: 'POST',
+			dataType: 'json',
+			success: function (arr) {
+				var rows = arr.rows;
+				var listData = '';
+				for(var i in rows){
+					listData += "<input type='checkbox' id='servicevoucherid' name='servicevoucherid[]' value='"+rows[i].id+"'/>"+rows[i].name+"数量：<input type='num' name='num"+rows[i].id+"' min='0'>&nbsp;&nbsp;&nbsp;&nbsp;";
+				}
+				$("#servicevoucheridData").html(listData);
+			}
+		});
+	}
+	</script>
+</head>
+<body>
+<form id="myform" name="myform" method="post" action="" enctype="multipart/form-data">
+  <table width="99%" border="0" align="center" cellpadding="5" cellspacing="1" bgcolor="#F5F5F5">
+
+    <input type="hidden" id="servicevoucherids"  name="servicevoucherids"/>
+	  <tr>
+		  <td width="11%" align="right" bgcolor="#FFFFFF">
+		  	卡券名称：
+		  </td>
+		  <td width="89%" bgcolor="#FFFFFF">
+		  	<input name="name" type="text" id="name" size="80" class="easyui-validatebox" required="true" validType="length[0,128]"  />
+		  </td>
+	  </tr>
+	  <tr>
+		  <td width="11%" align="right" bgcolor="#FFFFFF">
+			  对应面值：
+		  </td>
+		  <td width="89%" bgcolor="#FFFFFF">
+			  <input name="credit" type="text" id="credit" size="10" class="easyui-validatebox" required="true" validType="length[0,10]"  />
+		  </td>
+	  </tr>
+	  <tr>
+		  <td width="11%" align="right" bgcolor="#FFFFFF">
+			  对应数量：
+		  </td>
+		  <td width="89%" bgcolor="#FFFFFF">
+			  <input name="number" type="text" id="number" size="11" class="easyui-validatebox" required="true" validType="length[0,11]"  />
+		  </td>
+	  </tr>
+	  <tr>
+		  <td colspan="2" align="center" bgcolor="#FFFFFF">
+			  <span>搜索条件：</span>
+			  <span>服务券名称：</span>
+			  <input id="searchname" class="easyui-validatebox" size="10"> &nbsp;
+			  <span>创建时间大于</span>
+			  <input name="searchstarttime" type="text"  onclick="SelectDate(this,'yyyy-MM-dd hh:mm:ss')" id="searchstarttime" size="20" value="" class="easyui-validatebox" >
+			  小于
+			  <input name="searchendtime" type="text"  onclick="SelectDate(this,'yyyy-MM-dd hh:mm:ss')" id="searchendtime" value=""  size="20" class="easyui-validatebox">
+			  <input id="search" class="submit" type="button" onClick="doSearch()" value="搜 索">
+			  <input id="search1" class="submit" type="button" onClick="sea.reset()" value="清除搜索">
+		  </td>
+	  </tr>
+	  <tr>
+		  <td colspan="2" align="center" bgcolor="#FFFFFF" id="servicevoucheridData"></td>
+	  </tr>
+    <tr>
+      <td colspan="2" align="center" bgcolor="#FFFFFF"><input name="提交" type="submit" value="提交" class="submit">
+        <input type="reset" name="Submit2" value="重置" class="submit" />	
+		<input type="button" name="Submit" value="关闭" onClick="parent.layer.closeAll();" class="submit" />
+	  </td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>	

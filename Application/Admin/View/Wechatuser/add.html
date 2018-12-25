@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>综合应用管理平台</title>
+   <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/css/css.css">
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.4.js"></script>
+	<script src="__PUBLIC__/layer/layer.js"></script> 
+	<script type="text/javascript" src="__PUBLIC__/easyui1.3/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/public.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/date.js"></script>
+	<script charset="utf-8" src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+	<script charset="utf-8" src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/checkform.js"></script>
+	<script>
+	var editor;
+	var n = 0;
+	KindEditor.ready(function(K) {
+	
+		
+		$('#myform').form({
+			url:'/admin/wechatuser/saveadd',
+			onSubmit: function(){
+				$fly.load();
+			},
+			success:function(data){
+				$fly.disload();
+				parent.$('#mytable').datagrid('reload');
+				if (data == 'success') {
+					$fly.msg('添加成功');
+				} else{
+					$fly.msg(data);
+				}
+			}
+		});
+	});
+	
+	</script>
+</head>
+<body>
+<form id="myform" name="myform" method="post" action="" enctype="multipart/form-data">
+  <table width="99%" border="0" align="center" cellpadding="5" cellspacing="1" bgcolor="#F5F5F5">
+
+    <input type="hidden" id="merchantid"  name="merchantid" value="<?php echo $_GET['merchantid']?>"><tr><td width="11%" align="right" bgcolor="#FFFFFF">用户标识：</td><td width="89%" bgcolor="#FFFFFF"><input name="openid" type="text" id="openid" size="32" class="easyui-validatebox" required="true" validType="length[0,32]"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">用户昵称：</td><td width="89%" bgcolor="#FFFFFF"><input name="nickname" type="text" id="nickname" size="64" class="easyui-validatebox" required="true" validType="length[0,64]"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">性别：</td><td width="89%" bgcolor="#FFFFFF"><input name="sex" type="text" id="sex" size="2"   /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">城市：</td><td width="89%" bgcolor="#FFFFFF"><input name="city" type="text" id="city" size="32"   /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">省份：</td><td width="89%" bgcolor="#FFFFFF"><input name="province" type="text" id="province" size="32"   /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">国家：</td><td width="89%" bgcolor="#FFFFFF"><input name="country" type="text" id="country" size="32"   /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">语言：</td><td width="89%" bgcolor="#FFFFFF"><input name="language" type="text" id="language" size="16"   /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">用户头像：</td><td width="89%" bgcolor="#FFFFFF"><input name="headimgurl" id="headimgurl" type="file"></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">关注时间：</td><td width="89%" bgcolor="#FFFFFF"><input name="subscribe_time" type="text" id="subscribe_time" size="20" onclick="SelectDate(this,'yyyy-MM-dd hh:mm:ss')"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">是否关注：</td><td width="89%" bgcolor="#FFFFFF"><input name="subscribe" type="text" id="subscribe" size="2"   /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">手机号：</td><td width="89%" bgcolor="#FFFFFF"><input name="phone" type="text" id="phone" size="32" class="easyui-validatebox" required="true" validType="length[0,32]"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">邮箱：</td><td width="89%" bgcolor="#FFFFFF"><input name="email" type="text" id="email" size="64"   /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">积分：</td><td width="89%" bgcolor="#FFFFFF"><input name="credits" type="text" id="credits" size="10"   /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">是否禁用：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $c16;?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">是否激活：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $c19;?></td></tr>
+    
+    <tr>
+      <td colspan="2" align="center" bgcolor="#FFFFFF"><input name="提交" type="submit" value="提交" class="submit">
+        <input type="reset" name="Submit2" value="重置" class="submit" />	
+		<input type="button" name="Submit" value="关闭" onClick="parent.layer.closeAll();" class="submit" />
+				</td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>	

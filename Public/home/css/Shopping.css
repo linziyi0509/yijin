@@ -1,0 +1,154 @@
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.bank {
+				font-size: 11pt;
+				color: #fff !important;
+				padding-top: -5px !important;
+				margin-left: 20px;
+			}
+			
+			.mui-title {
+				font-size: 13pt;
+				color: #fff !important;
+			}
+			
+			header {
+				background: #1a1a1f !important;
+			}
+			
+			.moeny {
+				color: #000000;
+				line-height: 50px;
+				margin-left: 80px;
+				font-size: 18pt !important;
+			}
+			
+			#nav {
+				width: 100%;
+				height: 50px;
+				color: #FE9D0D !important;
+				font-size: 24pt;
+			}
+			
+			.mui-table {
+				display: table;
+				width: 50%;
+				table-layout: fixed;
+			}
+			
+			.mui-table-view-cell img {
+				width: 50px;
+				height: 70px;
+			}
+			
+			.mui-clearfix {
+				margin-left: 25px;
+				width: 200px;
+			}
+			
+			.icons span {
+				margin-top: 25px;
+				color: #ccc;
+			}
+			
+			.mui-h4,
+			h4 {
+				font-size: 18px;
+				margin-top: 15px;
+			}
+			
+			.bg {
+				width: 100%;
+				height: 150px;
+				margin-top: 44px;
+				background: url(../img/50.gif) no-repeat;
+				background-size: cover;
+				text-align: center;
+			}
+			
+			.top {
+				width: 150px;
+				height: 20px;
+				/*background:#fff;*/
+				margin-left: 125px;
+				font-size: 18pt;
+				color: #fff;
+				position: relative;
+			}
+			
+			.bg p span {
+				font-size: 10pt !important;
+				color: #ccc;
+			}
+			
+			.tap {
+				font-size: 10pt !important;
+				color: #ccc;
+				border: 1px solid #fff;
+				width: 70px;
+				margin-left: 155px;
+			}
+			
+			.top img {
+				position: absolute;
+				top: -4px;
+				left: 10px;
+				height: 27px;
+				width: 23px;
+			}
+			
+			.mui-segmented-control .mui-control-item.mui-active {
+				color: #27dfea;
+				background: none;
+			}
+			
+			.mui-segmented-control .mui-control-item {
+				color: #fff;
+				background: none;
+			}
+			
+			.mui-segmented-control {
+				font-size: 15px;
+				font-weight: 400;
+				position: relative;
+				display: table;
+				overflow: hidden;
+				width: 100%;
+				table-layout: fixed;
+				border: 0px;
+				border-radius: 3px;
+				background-color: transparent;
+				-webkit-touch-callout: none;
+				/*margin-top:16px;*/
+			}
+			
+			.mui-segmented-control .mui-control-item {
+				border-left: 1px solid #fff;
+				line-height: 38px;
+				font-size: 16pt;
+			}
+			
+			.mui-control-item {
+				height: 30px !important;
+			}
+			
+			.img {
+				width: 20px;
+				position: absolute;
+				left: 25px;
+				top: 7px;
+			}
+			
+			.img1 {
+				width: 20px;
+				position: absolute;
+				left: 210px;
+				top: 9px;
+			}
+			
+			.mui-content li {
+				margin-top: 10px;
+			}

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>综合应用管理平台</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/css/css.css">
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.4.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/easyui1.3/jquery.easyui.min.js"></script>
+	<script src="__PUBLIC__/layer/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/public.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/date.js"></script>
+	<script>
+	function doSearch(){
+		loaddata();
+	}
+	
+	
+	
+	function get_html(url,title){
+		$fly.gethtml(url,title);
+	}
+	
+	
+	
+	
+
+	
+	function loaddata(){
+		$("#all").css('height',$(document).height());
+		$('#mytable').datagrid({
+			//title: '商品列表',
+			//iconCls: 'icon-edit',//图标
+			//width: 'auto',
+			//height: 'auto',
+			fit: true,//自动大小
+			nowrap: true,
+			striped: true,//显示行条纹
+			url: '/admin/***leftcontrol***/***leftmethod***',
+			queryParams:{***leftparam***id:$fly.request('id')},
+			remoteSort: false,
+			//idField: 'id',
+			singleSelect: false,//是否单选
+			pagination: true,//分页控件
+			//rownumbers: true,//行号
+			fitColumns:true,//自适应列宽
+			checkOnSelect:false,//如果设置为 true，当用户点击一行的时候 checkbox checked(选择)/unchecked(取消选择)。 如果为false，当用户点击刚好在checkbox的时候，checkbox checked(选择)/unchecked(取消选择)
+			pagePosition:'both',//定义分页工具栏的位置.可用值有： 'top'，'bottom'，'both'。
+			//showFooter:true,//定义是否显示行底（如果是做统计表格，这里可以显示总计等）
+			columns: [[
+			   { field: 'ck', checkbox: true },
+			   { field: 'id', title: 'ID', align: 'center', width: 30 },
+			   ***field***
+			   
+			   
+			]],
+			toolbar: [{text: '导 入',iconCls: 'icon-add',handler: function () {
+				$fly.load();
+				var idlist = $fly.getchecked();
+				if(idlist==''){
+					$.messager.alert('友情提示','没有选中！');
+					$fly.disload();
+					return;
+				}
+				var leftid = $fly.request('id');
+				$.post('/admin/***leftcontrol***/import_***leftmethod***',{idlist:idlist,id:leftid},function(){
+					$fly.disload();
+					parent.$('#mytable').datagrid('reload');
+					$.messager.alert('友情提示','导入完成！');
+				});
+			}}]
+		});
+		//设置分页控件
+		var p = $('#mytable').datagrid('getPager');
+		$(p).pagination({
+			pageSize: 15,//每页显示的记录条数，默认为10
+			pageList: [15,30,50,80,100,200],//可以设置每页记录条数的列表
+			beforePageText: '第',//页数文本框前显示的汉字
+			afterPageText: '页    共 {pages} 页',
+			displayMsg: '共 {total} 条记录'
+		});
+	}
+	
+	$(document).ready(function(){
+		loaddata();
+	});
+
+
+	</script>
+</head>
+<body>
+<div id="all" style="width:100%; height:100%">
+<div id="tb" style="padding:3px; margin-bottom:10px;" class="datagrid-wrap panel-body panel-body-noheader datagrid-toolbar">
+<form id="sea" name="sea">
+		***searchlist***
+		<input id="search" class="submit" type="button" onClick="doSearch()" value="搜 索">
+		<input id="search" class="submit" type="button" onClick="sea.reset()" value="清除搜索">
+ 
+</form></div>
+<div id="rongqi" style="width:100%; height:81%">
+<table id="mytable"></table>
+</div>
+	
+</div>
+</body>
+</html>	

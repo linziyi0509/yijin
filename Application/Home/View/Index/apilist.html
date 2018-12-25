@@ -1,0 +1,39 @@
+<title>接口文档</title>
+<table width="100%" border="0" cellpadding="8" cellspacing="1" bgcolor="#000000">
+<tr>
+  <td height="44" colspan="1" align="left" bgcolor="#BD2D30"><span>接口导航</span></td>
+</tr>
+<tr>
+  <td  height="44" align="left" bgcolor="#ffffff">
+<?php
+foreach ($result as $key => $value) {
+?>
+<span style="width:200px;margin:10px;float:left;"><a href="#id<?php echo $value['id'];?>"><?php echo $value['name'];?></a></span>
+<?php
+}
+?>
+  </td>
+</tr>
+</table>
+<br><br>
+<?php
+foreach ($result as $key => $value) {
+?>
+<table id="id<?php echo $value['id'];?>" width="100%" border="0" cellpadding="8" cellspacing="1" bgcolor="#000000">
+<tr>
+  <td height="44" colspan="1" align="left" bgcolor="#E0ECFF"><span><?php echo $value['name'];?></span></td>
+</tr>
+<tr>
+  <td  height="44" align="left" bgcolor="#ffffff"><span><?php echo $value['sql'];?></span></td>
+  
+</tr>
+<tr>
+  <td  height="44" align="left" bgcolor="#ffffff"><span><?php echo $value['par'];?></span></td>
+  
+</tr>
+
+</table>
+<br><br>
+<?php
+}
+?>

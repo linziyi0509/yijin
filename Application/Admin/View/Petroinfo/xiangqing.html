@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>综合应用管理平台</title>
+   <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/css/css.css">
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.4.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/easyui1.3/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/public.js"></script>
+</head>
+<body>
+<form id="myform" name="myform" method="post" action="">
+  <table width="99%" border="0" align="center" cellpadding="5" cellspacing="1" bgcolor="#F5F5F5">
+    
+    <tr><td width="11%" align="right" bgcolor="#FFFFFF">券编号：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['typecode'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">校验码：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['checkcode'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">券类名称：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['typetitle'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">券面额类型：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $c84;?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">加油券面值：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $c81;?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">生效时间：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['enabletime'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">失效时间：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['disabletime'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">券图路径：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['imageurl'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">券使用说明：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['usedeclare'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">使用状态：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $c31;?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">券类型：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['vouchertype'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">创建时间：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['createtime'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">修改时间：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['updatetime'];?></td></tr>
+    
+    <tr>
+      <td colspan="2" align="center" bgcolor="#FFFFFF"><input type="button" name="Submit" value="关闭" onclick="parent.layer.closeAll();" class="submit" /></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>	

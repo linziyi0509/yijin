@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>综合应用管理平台</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/css/css.css">
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.4.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/easyui1.3/jquery.easyui.min.js"></script>
+	<script src="__PUBLIC__/layer/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/public.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/date.js"></script>
+	<script>
+	function doSearch(){
+		loaddata();
+	}
+	function get_html(url,title){
+		$fly.gethtml(url,title);
+	}
+	function loaddata() {
+		$.ajax({
+			url: '/admin/servicevoucher/list_page',
+			data: {
+				name: $('#name').val(),
+				starttime: $("input[name='starttime']").val(),
+				endtime: $("input[name='endtime']").val(),
+				page:1,
+				rows:100
+			},
+			type: 'POST',
+			dataType: 'json',
+			success: function (arr) {
+				var rows = arr.rows;
+				console.log("rows:"+rows);
+				var listData = '';
+				for(var i in rows){
+					listData += "<input type='checkbox' name='servicevoucherid' value='"+rows[i].id+"'/>"+rows[i].name+"数量：<input type='num' name='num' min='0'>";
+				}
+				$("#rongqi").html(listData);
+			}
+		});
+	}
+	</script>
+</head>
+<body>
+<div id="all" style="width:100%; height:100%">
+
+<div id="tb" style="border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color: #dddddd;width:100%;background-color: #F4F4F4;">
+<div style="padding:8px;">
+<form id="sea" name="sea">
+		<span>服务券名称：</span><input id="name" class="easyui-validatebox" size="10"> &nbsp; <span>创建时间大于</span><input name="starttime" type="text"  onclick="SelectDate(this,'yyyy-MM-dd hh:mm:ss')" id="starttime" size="20" value="" class="easyui-validatebox" > 小于 <input name="endtime" type="text"  onclick="SelectDate(this,'yyyy-MM-dd hh:mm:ss')" id="endtime" value=""  size="20" class="easyui-validatebox"> 
+		<input id="search" class="submit" type="button" onClick="doSearch()" value="搜 索">
+		<input id="search" class="submit" type="button" onClick="sea.reset()" value="清除搜索">
+ 
+</form></div></div>
+<div id="rongqi" style="width:100%; height:89%">
+<table id="mytable"></table>
+</div>
+	
+</div>
+</body>
+</html>	

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>兑换列表</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="__PUBLIC__/home/css/mui.min.css">
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+	.bank {
+				font-size: 11pt;
+				color: #fff !important;
+				padding-top: -5px !important;
+				margin-left:20px;
+			}
+			
+			.mui-title {
+				font-size: 13pt;
+				color: #fff !important;
+			}
+			
+			header {
+				background: #1a1a1f !important;
+			}
+			
+			.moeny{
+				color:#000000;
+				line-height:50px;
+				margin-left:80px;
+				font-size:18pt !important;
+			}
+			#nav{
+				width:100%;
+				height:50px;
+				color:#FE9D0D !important;
+				font-size:24pt;
+			}
+			.mui-table {
+			    display: table;
+			    width: 50%;
+			    table-layout: fixed;
+			}
+			.mui-table-view-cell img{
+				width:50px;
+				height:70px;
+			}
+			.mui-clearfix{
+				margin-left:25px;
+				width: 200px;
+			}
+			.icons span{
+				margin-top:25px ;
+				color:#ccc;
+			}
+			.mui-h4, h4 {
+			    font-size: 18px;
+			    margin-top: 15px;
+			}
+			.bg{
+				width:100%;
+				height:150px;
+				margin-top:44px;
+				background: url(__PUBLIC__/home/img/50.gif) no-repeat;
+				background-size:cover ;
+				text-align:center ;
+			}
+			.top{
+				width:150px;
+				height:20px;
+				/*background:#fff;*/
+				margin-left: 125px;
+				font-size:18pt;
+				color:#fff;
+				position: relative;
+			}
+			.bg p span{
+				font-size:10pt !important;
+				color:#ccc;
+			}
+			.tap{
+				font-size:10pt !important;
+				color:#ccc;
+				border:1px solid #fff;
+				width:70px;
+				margin-left:155px;
+			}
+			.top img{
+				position: absolute;
+				top:-4px;
+				left:10px;
+				height:27px;
+				width:23px;
+			}
+			.mui-segmented-control .mui-control-item.mui-active {
+			    color: #27dfea;
+			    background: none;
+			}
+			.mui-segmented-control .mui-control-item{
+			    color: #fff;
+			    background: none;
+			}
+			.mui-segmented-control {
+			    font-size: 15px;
+			    font-weight: 400;
+			    position: relative;
+			    display: table;
+			    overflow: hidden;
+			    width: 100%;
+			    table-layout: fixed;
+			    border: 0px; 
+			    border-radius: 3px;
+			    background-color: transparent;
+			    -webkit-touch-callout: none;
+			    /*margin-top:16px;*/
+			}
+			
+			.mui-segmented-control .mui-control-item{
+				border-left:1px solid #fff;
+				line-height: 38px; 
+				font-size: 16pt;
+			}
+			.mui-control-item{
+				height:30px !important;
+			}
+			.img{
+				width:20px;
+				position: absolute;
+				left:25px;
+				top:7px;
+			}
+			.img1{
+				width:20px;
+				position: absolute;
+				left:210px;
+				top:9px;
+			}
+			.mui-content li{
+				margin-top:10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span class="bank">服务商城</span></a>
+<!--			<h1 class="mui-title"></h1>-->
+			<a id="icon-more"><span class="mui-icon mui-icon-more mui-pull-right"></span></a>
+		</header>
+		<div class="bg"><br /><br />
+			<p class="top"><img src="__PUBLIC__/home/img/51.gif" alt="" />{$userinfo.credits}<span>积分</span></p>
+			<p class="tap">$会员充值</p>
+		<div class="mui-segmented-control">
+			<a class="mui-control-item"><img src="__PUBLIC__/home/img/52.gif" alt="" class="img"/>积分明细</a>
+			<a class="mui-control-item"><img src="__PUBLIC__/home/img/54.gif" alt="" class="img1"/>兑换记录</a>
+		</div>
+
+		</div>
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="#tabbar-with-contact">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" href="#tabbar-with-chat">
+				<span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
+				<span class="mui-tab-label">消息</span>
+			</a>
+			<a class="mui-tab-item" href="#tabbar-with-contact">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">通讯录</span>
+			</a>
+			<a class="mui-tab-item" href="#tabbar-with-map">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">设置</span>
+			</a>
+			<a class="mui-tab-item" href="#tabbar-with-map">
+				<span class="mui-icon mui-icon-gear"></span>
+				<span class="mui-tab-label">设置</span>
+			</a>
+		</nav>
+		<div class="mui-content">
+			<div id="tabbar" class="mui-control-content mui-active">
+				<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+					<li class="mui-table-view-cell" >
+						<div class="mui-slider-cell" >
+							<a class="icons"><span class="mui-icon mui-icon-forward mui-pull-right"></span></a>
+							<div class="oa-contact-cell mui-table" id="Come">
+								<div class="oa-contact-avatar mui-table-cell">
+									<img src="__PUBLIC__/home/img/jy.png" />
+								</div>
+								<div class="oa-contact-content mui-table-cell">
+									<div class="mui-clearfix">
+										<h4 class="oa-contact-name">加油充值卡</h4>
+										<span class="oa-contact-position mui-h6">中国化石油卡充值</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					
+					
+					<li class="mui-table-view-cell">
+						<div class="mui-slider-cell">
+							<a class="icons"><span class="mui-icon mui-icon-forward mui-pull-right"></span></a>
+							<div class="oa-contact-cell mui-table" id="phone">
+								<div class="oa-contact-avatar mui-table-cell">
+									<img src="__PUBLIC__/home/img/phone.jpg" />
+								</div>
+								<div class="oa-contact-content mui-table-cell">
+									<div class="mui-clearfix">
+										<h4 class="oa-contact-name">话费充值</h4>
+										<span class="oa-contact-position mui-h6">手机话费充值</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-slider-cell">
+							<a class="icons"><span class="mui-icon mui-icon-forward mui-pull-right"></span></a>
+							<div class="oa-contact-cell mui-table" id="transfer">
+								<div class="oa-contact-avatar mui-table-cell">
+									<img src="__PUBLIC__/home/img/fw.jpg" />
+								</div>
+								<div class="oa-contact-content mui-table-cell">
+									<div class="mui-clearfix">
+										<h4 class="oa-contact-name">服务转让</h4>
+										<span class="oa-contact-position mui-h6">服务转入权益</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-slider-cell">
+							<a class="icons"><span class="mui-icon mui-icon-forward mui-pull-right"></span></a>
+							<div class="oa-contact-cell mui-table" id="cunzhi">
+								<div class="oa-contact-avatar mui-table-cell">
+									<img src="__PUBLIC__/home/img/cz.jpg" />
+								</div>
+								<div class="oa-contact-content mui-table-cell">
+									<div class="mui-clearfix">
+										<h4 class="oa-contact-name">在线充值</h4>
+										<span class="oa-contact-position mui-h6">金额在线充值</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div id="tabbar-with-chat" class="mui-control-content">
+				<div class="title">这是div模式选项卡中的第2个子页面，该页面展示一个消息列表</div>
+				
+				<ul class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 1</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 2</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 3</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 4</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 5</a></li>
+				</ul>
+				
+			</div>
+			<div id="tabbar-with-contact" class="mui-control-content">
+				<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-cell">
+						<div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell">
+								<img src="__PUBLIC__/home/img/12.jpg" />
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									<h4 class="oa-contact-name">加油充值卡</h4>
+									<span class="oa-contact-position mui-h6">中国化石油卡充值</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-cell">
+						<div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell">
+								<img src="__PUBLIC__/home/img/12.jpg" />
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									<h4 class="oa-contact-name">艾AA</h4>
+									<span class="oa-contact-position mui-h6">总经理</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-cell">
+						<div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell">
+								<img src="__PUBLIC__/home/img/12.jpg" />
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									<h4 class="oa-contact-name">罗辑</h4>
+									<span class="oa-contact-position mui-h6">员工</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-cell">
+						<div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell">
+								<img src="__PUBLIC__/home/img/12.jpg" />
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									<h4 class="oa-contact-name">云天明</h4>
+									<span class="oa-contact-position mui-h6">员工</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-cell">
+						<div class="oa-contact-cell mui-table">
+							<div class="oa-contact-avatar mui-table-cell">
+								<img src="__PUBLIC__/home/img/12.jpg" />
+							</div>
+							<div class="oa-contact-content mui-table-cell">
+								<div class="mui-clearfix">
+									<h4 class="oa-contact-name">史强</h4>
+									<span class="oa-contact-position mui-h6">员工</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			</div>
+			<div id="tabbar-with-map" class="mui-control-content">
+				<div class="title">这是div模式选项卡中的第4个子页面，该页面展示一个常见的设置示例.</div>
+				<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						新消息通知
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						隐私
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						通用
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 25px;">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						关于mui
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view" style="margin-top: 25px;">
+				<li class="mui-table-view-cell">
+					<a style="text-align: center;color: #FF3B30;">
+						退出登录
+					</a>
+				</li>
+			</ul>
+			</div>
+		</div>
+		<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+		<script src="__PUBLIC__/layer2/layer.js"></script>
+		<script type="text/javascript">
+			//加油卡选项
+			$("#Come").click(function () {
+				layer.alert('你所在的城市暂未开通', {icon: 2});
+			});
+			//加油卡选项
+			$("#phone").click(function () {
+				layer.alert('你所在的城市暂未开通', {icon: 2});
+			});
+			//服务转让
+			$("#transfer").click(function () {
+				location.href ="{:U('Scan/TransferLst')}";
+			});
+			//在线充值
+			$("#cunzhi").click(function () {
+				location.href ="{:U('info')}";
+			});
+		</script>
+	</body>
+
+</html>

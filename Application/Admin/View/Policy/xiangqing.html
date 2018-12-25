@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>综合应用管理平台</title>
+   <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/css/css.css">
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.4.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/easyui1.3/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/public.js"></script>
+</head>
+<body>
+<form id="myform" name="myform" method="post" action="">
+    <table width="99%" border="0" align="center" cellpadding="5" cellspacing="1" bgcolor="#F5F5F5">
+
+        <tr>
+            <td width="11%" align="right" bgcolor="#FFFFFF">保单号：</td>
+            <td width="89%" bgcolor="#FFFFFF">
+                <?php echo $result['policynumber'];?>
+            </td>
+        </tr>
+        <tr>
+            <td width="11%" align="right" bgcolor="#FFFFFF">手机号：</td>
+            <td width="89%" bgcolor="#FFFFFF">
+                <?php echo $result['telephone'];?>
+            </td>
+        </tr>
+        <tr>
+            <td width="11%" align="right" bgcolor="#FFFFFF">是否授权营销员：</td>
+            <td width="89%" bgcolor="#FFFFFF"><?php echo $c68;?></td>
+        </tr>
+        <tr>
+            <td width="11%" align="right" bgcolor="#FFFFFF">营销员手机号：</td>
+            <td width="89%" bgcolor="#FFFFFF"><?php echo $result['salesmanphone'];?></td>
+        </tr>
+        <tr>
+            <td width="11%" align="right" bgcolor="#FFFFFF">石化加油券：</td>
+            <td width="89%" bgcolor="#FFFFFF"><?php echo $result['shjyqtotal'];?></td>
+        </tr>
+        <tr>
+            <td width="11%" align="right" bgcolor="#FFFFFF">石化充值卡：</td>
+            <td width="89%" bgcolor="#FFFFFF"><?php echo $result['shczktotal'];?></td>
+        </tr>
+        <tr>
+            <td width="11%" align="right" bgcolor="#FFFFFF">服务卡：</td>
+            <td width="89%" bgcolor="#FFFFFF"><?php echo $result['fwktotal'];?></td>
+        </tr>
+        <tr>
+            <td width="11%" align="right" bgcolor="#FFFFFF">积分卡：</td>
+            <td width="89%" bgcolor="#FFFFFF"><?php echo $result['jfktotal'];?></td>
+        </tr>
+        <tr>
+            <td width="11%" align="right" bgcolor="#FFFFFF">审核时间：</td>
+            <td width="89%" bgcolor="#FFFFFF"><?php echo $result['audittime'];?></td>
+        </tr>
+        <tr>
+            <td width="11%" align="right" bgcolor="#FFFFFF">备注：</td>
+            <td width="89%" bgcolor="#FFFFFF"><?php echo $result['remark'];?></td>
+        </tr>
+        <tr>
+            <td width="11%" align="right" bgcolor="#FFFFFF">是否审核：</td>
+            <td width="89%" bgcolor="#FFFFFF"><?php echo $c74;?></td>
+        </tr>
+        <tr>
+            <td width="11%" align="right" bgcolor="#FFFFFF">创建时间：</td>
+            <td width="89%" bgcolor="#FFFFFF"><?php echo $result['createtime'];?></td>
+        </tr>
+        <tr>
+            <td width="11%" align="right" bgcolor="#FFFFFF">修改时间：</td>
+            <td width="89%" bgcolor="#FFFFFF"><?php echo $result['updatetime'];?></td>
+        </tr>
+        <tr>
+            <td width="11%" align="right" bgcolor="#FFFFFF">服务券信息：</td>
+            <td width="89%" bgcolor="#FFFFFF">
+                <volist name="result['serviceinfo']" id="val">
+                    名称:{$val.name}-数量:{$val.num}@
+                </volist>
+            </td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center" bgcolor="#FFFFFF"><input type="button" name="Submit" value="关闭" onclick="parent.layer.closeAll();" class="submit" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>	

@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>综合应用管理平台</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/css/css.css">
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.4.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/easyui1.3/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/public.js"></script>
+	<script>
+	var editingId;
+	var parid = 0;
+	function edit(rowid){
+		if(typeof(rowid)!='undefined'){
+			$('#tt').treegrid('beginEdit', rowid);
+			return;
+		}
+		if (editingId != undefined){
+			$('#tt').treegrid('select', editingId);
+			return;
+		}
+		var row = $('#tt').treegrid('getSelected');
+		if (row){
+			editingId = row.id
+			$('#tt').treegrid('beginEdit', editingId);
+		}
+	}
+		
+	
+		
+	function cancel(){
+			if (editingId != undefined){
+				$('#tt').treegrid('cancelEdit', editingId);
+			}
+			if(editingId>1000000){
+				$('#tt').treegrid('remove', editingId);
+			}
+			editingId = undefined;
+			iid = 1;
+		}	
+		
+	function save(){
+			if (editingId != undefined){
+				var t = $('#tt');
+				t.treegrid('endEdit', editingId);
+				var rows = t.treegrid('getChildren');
+				for(var i=0; i<rows.length; i++){
+					var row = rows[i];
+					if(row.id == editingId){
+					if(editingId>1000000){
+						var url = '/admin/rbac/saveadd';
+						var param = {parentid:parid,name:row.name,order:row.order};
+					}else{
+						var url = '/admin/rbac/saveupdate';
+						var param = {id:editingId,name:row.name,order:row.order};
+					}
+						$.post(url,param,function(data){
+							data = eval('['+data+']');
+							data = data[0];
+							//$.messager.alert('友情提示',data.message);
+							editingId = undefined;
+						});
+						iid = 1;
+					}
+				}
+			}
+		}	
+		
+		
+	var indexid = 1000000;
+	var iid = 1;
+	function append(){
+			if(iid>1){
+				$.messager.alert('友情提示','请填写分类');
+				return;
+			}
+			indexid++;
+			iid++;
+			var node = $('#tt').treegrid('getSelected');
+			$('#tt').treegrid('append',{
+				parent: node.id,
+				data: [{
+					id: indexid,
+					name: ''
+				}]
+			});
+			edit(indexid);
+			editingId = indexid;
+		}	
+		
+	function removeIt(){
+		$.messager.confirm('友情提示','确定要删除吗？',function(r){
+			if (r){
+				var node = $('#tt').treegrid('getSelected');
+				if (node){
+					$('#tt').treegrid('remove', node.id);
+					$.post('/admin/rbac/del',{id:node.id},function(){});
+				}
+			}
+		});
+	}	
+		
+			
+		
+	$(document).ready(function(){
+		$('#tt').treegrid({
+			fit: true,//自动大小
+			idField:'id',
+			url:'/admin/rbac/getlist',
+			treeField:'name',//名称
+			iconCls: 'icon-ok',
+			rownumbers: true,
+			animate: true,
+			collapsible: true,
+			//fitColumns: true,
+			showFooter: true,
+			//onContextMenu: onContextMenu,
+			method: 'post',
+			columns:[[
+			{title:'排序',field:'order',align: 'left',width:30,editor:'text'},
+			{title:'分类名',field:'name',align: 'left',width:800,editor:'text'}
+			]]
+			//onClickRow:function(){}
+		});
+	});
+	</script>
+</head>
+<body>
+
+	
+<table width="100%" border="0" cellpadding="5">
+  <tr>
+    <td><a href="javascript:void(0)" class="easyui-linkbutton" onClick="edit()">编辑</a> <a href="javascript:void(0)" class="easyui-linkbutton" onClick="cancel()">取消</a> <a href="javascript:void(0)" class="easyui-linkbutton" onClick="save()">保存</a><!-- <a href="javascript:void(0)" class="easyui-linkbutton" onClick="location.reload();">刷新</a> <a href="javascript:void(0)" class="easyui-linkbutton" onClick="history.go(-1);">返回</a> --></td>
+  </tr>
+</table>
+<div style="width:95%; height:500px"><table id="tt"></table></div>
+</body>
+</html>

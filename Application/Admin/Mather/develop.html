@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>综合应用管理平台</title>
+	<script src="__PUBLIC__/js/jquery-1.4.4.js"></script>
+	<script src="__PUBLIC__/js/jquery.form.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/public.js"></script>
+	<script>
+	function del(id){
+		$("#hang").val($("#hang").val()*1-1);
+		$("#hang"+id).parent().remove();
+	}
+	function add(){
+		id = $("#hang").val()*1+1;
+		$("#hang"+$("#hang").val()).parent().after('<tr><td bgcolor="#FFFFFF" id="hang'+id+'"><input name="name'+id+'" type="text" id="name'+id+'" size="15" /></td><td bgcolor="#FFFFFF"><select name="type'+id+'" id="type'+id+'"><option>请选择</option><option value="int">int</option><option value="smallint">smallint</option><option value="varchar">varchar</option><option value="text">text</option><option value="longtext">longtext</option><option value="datetime">datetime</option></select></td><td bgcolor="#FFFFFF"><input name="long'+id+'" type="text" id="long'+id+'" size="5" /></td><td bgcolor="#FFFFFF"><input name="default'+id+'" type="text" id="default'+id+'" size="15" /></td><td bgcolor="#FFFFFF"><input name="description'+id+'" type="text" id="description'+id+'" size="50" /></td><td bgcolor="#FFFFFF"><input name="ifsearch'+id+'" type="radio" value="1" checked="checked" />是<input type="radio" name="ifsearch'+id+'" value="0" />否</td><td bgcolor="#FFFFFF"><input name="ifshow'+id+'" type="radio" value="1" checked="checked" />是<input type="radio" name="ifshow'+id+'" value="0" />否</td><td bgcolor="#FFFFFF"><input type="button" name="Submit4" value="删除" onclick="del('+id+')" /></td></tr>');
+	$("#hang").val($("#hang").val()*1+1);
+	}
+	
+	$(document).ready(function() {
+    $('#myform').ajaxForm(function(data) {
+    	data = eval('['+data+']');
+		data = data[0];
+		alert(data.message);
+		$("#submit").val('提交');
+     });
+    $("#submit").click(function(){
+    	$("#submit").val('正在提交..');
+	});
+	
+	
+});
+	</script>
+<style type="text/css">
+<!--
+body,td,th {
+	font-size: 12px;
+}
+.STYLE1 {color: #FF0000}
+-->
+</style></head>
+	<body>
+	<form id="myform" name="myform" method="post" action="/admin/admin/savedevelop">
+	  <table width="100%" border="0" cellpadding="8" cellspacing="1" bgcolor="#F5F5F5">
+        <tr>
+          <td height="44" colspan="2" align="left" bgcolor="#E0ECFF"><span class="STYLE1">注：非技术人员禁止使用该功能。</span></td>
+        </tr>
+        <tr>
+          <td width="8%" align="right" bgcolor="#FFFFFF">选择类型：</td>
+          <td width="92%" bgcolor="#FFFFFF"><select name="type" id="type">
+            <option value="">请选择类型</option>
+            <option value="1">非列表</option>
+            <option value="2">列表</option>
+          </select>          </td>
+        </tr>
+        <tr>
+          <td align="right" bgcolor="#FFFFFF">模块名称：</td>
+          <td bgcolor="#FFFFFF"><input name="module" type="text" id="module" /></td>
+        </tr>
+        <tr>
+          <td align="right" bgcolor="#FFFFFF">功能：</td>
+          <td bgcolor="#FFFFFF"><input name="gongneng" type="checkbox" id="gongneng" value="add" />
+            添加
+              <input name="gongneng" type="checkbox" id="gongneng" value="del" />
+              删除
+              <input name="gongneng" type="checkbox" id="gongneng" value="update" />
+          修改
+          <input name="gongneng" type="checkbox" id="gongneng" value="in" disabled="disabled" />
+导入
+<input name="gongneng" type="checkbox" id="gongneng" value="out" disabled="disabled" />
+导出</td>
+        </tr>
+        <tr>
+          <td align="right" bgcolor="#FFFFFF">表名称：</td>
+          <td bgcolor="#FFFFFF">my_
+            <input name="table" type="text" id="table" /></td>
+        </tr>
+        <tr>
+          <td align="right" bgcolor="#FFFFFF">添加字段：</td>
+          <td align="left" bgcolor="#FFFFFF"><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#F5F5F5">
+            <tr>
+              <td bgcolor="#E0ECFF">名</td>
+              <td bgcolor="#E0ECFF">类型</td>
+              <td bgcolor="#E0ECFF">长度</td>
+              <td bgcolor="#E0ECFF">默认值</td>
+              <td bgcolor="#E0ECFF">备注</td>
+              <td bgcolor="#E0ECFF">是否搜索</td>
+              <td bgcolor="#E0ECFF">是否显示在列表</td>
+              <td bgcolor="#E0ECFF">&nbsp;</td>
+            </tr>
+            <tr>
+              <td bgcolor="#FFFFFF">id</td>
+              <td bgcolor="#FFFFFF">int</td>
+              <td bgcolor="#FFFFFF">10</td>
+              <td bgcolor="#FFFFFF">&nbsp;</td>
+              <td bgcolor="#FFFFFF">id</td>
+              <td bgcolor="#FFFFFF">&nbsp;</td>
+              <td bgcolor="#FFFFFF">&nbsp;</td>
+              <td bgcolor="#FFFFFF">&nbsp;</td>
+            </tr>
+            <tr>
+              <td bgcolor="#FFFFFF">createtime</td>
+              <td bgcolor="#FFFFFF">datetime</td>
+              <td bgcolor="#FFFFFF">&nbsp;</td>
+              <td bgcolor="#FFFFFF">&nbsp;</td>
+              <td bgcolor="#FFFFFF">创建时间</td>
+              <td bgcolor="#FFFFFF">&nbsp;</td>
+              <td bgcolor="#FFFFFF">&nbsp;</td>
+              <td bgcolor="#FFFFFF">&nbsp;</td>
+            </tr>
+            <tr>
+              <td bgcolor="#FFFFFF">updatetime</td>
+              <td bgcolor="#FFFFFF">datetime</td>
+              <td bgcolor="#FFFFFF">&nbsp;</td>
+              <td bgcolor="#FFFFFF">&nbsp;</td>
+              <td bgcolor="#FFFFFF">更新时间</td>
+              <td bgcolor="#FFFFFF">&nbsp;</td>
+              <td bgcolor="#FFFFFF">&nbsp;</td>
+              <td bgcolor="#FFFFFF">&nbsp;</td>
+            </tr>
+            <tr>
+              <td bgcolor="#FFFFFF" id="hang1"><input name="name1" type="text" id="name1" size="15" /></td>
+              <td bgcolor="#FFFFFF"><select name="type1" id="type1">
+                <option value="">请选择</option>
+                  <option value="int">int</option>
+				  <option value="smallint">smallint</option>
+                  <option value="varchar">varchar</option>
+				  <option value="text">text</option>
+				  <option value="longtext">longtext</option>
+				  <option value="datetime">datetime</option>
+                              </select>              </td>
+              <td bgcolor="#FFFFFF"><input name="long1" type="text" id="long1" size="5" /></td>
+              <td bgcolor="#FFFFFF"><input name="default1" type="text" id="default1" size="15" /></td>
+              <td bgcolor="#FFFFFF"><input name="description1" type="text" id="description1" size="50" /></td>
+              <td bgcolor="#FFFFFF"><input name="ifsearch1" type="radio" value="1" checked="checked" />是<input type="radio" name="ifsearch" value="0" />否</td>
+              <td bgcolor="#FFFFFF"><input name="ifshow1" type="radio" value="1" checked="checked" />是<input type="radio" name="ifshow" value="0" />否</td>
+              <td bgcolor="#FFFFFF">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="8" bgcolor="#FFFFFF"><input type="button" name="Submit3" value="添加字段" onclick="add();" /></td>
+            </tr>
+          </table></td>
+        </tr>
+        
+        <tr>
+          <td colspan="2" align="center" bgcolor="#FFFFFF"><input name="hang" type="hidden" id="hang" value="1" />
+            <input type="submit" name="Submit" value="提交" />
+          <input type="reset" name="Submit2" value="重置" class="submit" /></td>
+        </tr>
+      </table>
+    </form>
+	</body></html>

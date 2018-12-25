@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>综合应用管理平台</title>
+   <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/css/css.css">
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.4.js"></script>
+	<script src="__PUBLIC__/layer/layer.js"></script> 
+	<script type="text/javascript" src="__PUBLIC__/easyui1.3/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/public.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/date.js"></script>
+	<script charset="utf-8" src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+	<script charset="utf-8" src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/checkform.js"></script>
+	<script>
+	var editor;
+	var n = 0;
+	KindEditor.ready(function(K) {
+		$('#myform').form({
+			url:'/admin/redeemcode/active',
+			onSubmit: function(){
+				var flag = $("input[name='flag']").val();
+				if(flag == 1){
+					$fly.msg('请选择未激活并未使用的兑换码');
+					return '';
+				}else{
+					$fly.load();
+				}
+			},
+			success:function(data){
+				$fly.disload();
+				parent.$('#mytable').datagrid('reload');
+				if (data == 'success') {
+					$fly.msg('激活成功');
+				} else{
+					$fly.msg(data);
+				}
+			}
+		});
+	});
+	
+	</script>
+</head>
+<body>
+<form id="myform" name="myform" method="post" action="" enctype="multipart/form-data">
+  <table width="99%" border="0" align="center" cellpadding="5" cellspacing="1" bgcolor="#F5F5F5">
+	  <input type="hidden" name="idlist" value="{$data.idlist}" id="idlist"/>
+	  <input type="hidden" name="flag" value="{$data.flag}" id="flag"/>
+	  <tr>
+		  <td width="11%" align="right" bgcolor="#FFFFFF">
+			  选择服务券：
+		  </td>
+		  <td width="89%" bgcolor="#FFFFFF">
+			  <select id="servicevoucherid"  name="servicevoucherid" required>
+				  <option value="">---请选择---</option>
+				  <foreach name="data.dataServicevoucher" item="vo" key="k" >
+					  <option value="{$vo.id}">{$vo.name}</option>
+				  </foreach>
+			  </select>
+		  </td>
+	  </tr>
+	  <tr>
+		  <td width="11%" align="right" bgcolor="#FFFFFF">
+			 兑换码列表：
+		  </td>
+		  <td width="89%" bgcolor="#FFFFFF">
+			  <foreach name="data.dataRedeemcode" item="vo" key="k" >
+				  {$vo.id}&nbsp;&nbsp;-&nbsp;&nbsp;{$vo.servername}&nbsp;&nbsp;-&nbsp;&nbsp;{$vo.code}&nbsp;&nbsp;
+			  </foreach>
+		  </td>
+	  </tr>
+    <tr>
+      <td colspan="2" align="center" bgcolor="#FFFFFF"><input name="提交" type="submit" value="提交" class="submit">
+        <input type="reset" name="Submit2" value="重置" class="submit" />	
+		<input type="button" name="Submit" value="关闭" onClick="parent.layer.closeAll();" class="submit" />
+				</td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>	

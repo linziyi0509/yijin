@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta charset="UTF-8">
+    <title>服务转让</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/style.css"/>
+</head>
+
+<body>
+<!--*头部*-->
+<header >
+    <!-- <span>
+        <a href="javascript:;window.history.go(-1)">
+            <font class="bank">返回</font></a>
+        </a>
+    </span> -->
+    我的增值服务
+</header>
+<!--*box*-->
+<div class="box">
+    <div class="boxs">
+        <div class="select">
+            <span class="select_q" ></span>全选
+        </div>
+        <ul class="co_list">
+            <!-- <li >
+                <span class="sel" onclick="check(27)"></span>
+                <h1>大网卡26</h1>
+                <p>2017-2-2 11:1:1</p>
+                <p>上课雷电防护考试的发挥了圣诞节弗拉索夫</p>
+                <i>¥25</i>
+            </li> -->
+            <!-- 循环数据 -->
+            <volist name="transData" id="val">
+                <li >
+                    <span class="sel" data="{$val.id}" last="{$val.integral}"></span>
+                    <h1>{$val.name}</h1>
+                    <p>{$val.starttime|date="Y-m-d",###}~{$val.endtime|date="Y-m-d",###}</p>
+                    <p>{$val.transfer}</p>
+                    <i>¥{$val.integral}</i>
+                </li>
+            </volist>
+        </ul>
+    </div>
+    <div class="btn">
+        <a href="javascript:;" onclick="check()">服务转让</a>
+    </div>
+    <!-- <div class="statement">
+        <h1>免责声明：</h1>
+        <p>1、输入退款支付宝账户时请仔细核对，因支付宝账户输入错误导致的一切损失本平台概不负责。</p>
+        <p>2、办理退卡成功后，平台自动扣除相应服务费。</p>
+        <p>3、退卡流程办理成功后1-2个工作日内退款。</p>
+    </div> -->
+</div>
+</body>
+<script type="text/javascript" src="__PUBLIC__/home/js/jquery-1.11.0.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/home/js/index.js" ></script>
+<script src="__PUBLIC__/layer2/layer.js"></script>
+    <script type="text/javascript">
+    function check () {
+        var id = []
+        var sum = 0;
+        $(".sel_ok").each(function(){
+            id.push($(this).attr('data'));
+            number = $(this).attr('last');
+            if (number != undefined) {
+                sum +=Number(number);
+            }
+            
+        });
+        if (id == '') {
+            layer.msg('转让数据有空值', {icon: 3}); 
+        }else{
+            layer.confirm('转让积分为'+sum, {icon: 3, title:'提示'}, function(index){
+				//alert(id);
+                $.post("{:U('Scan/TransferLst')}", { id: id},
+                function(data){
+				if (data.code== 200) {
+                    layer.alert(data.string,{icon: 1},function(index){
+                            location.reload();
+                            layer.close(index);
+                        }); 
+                    }
+                    else if(data.code== 310){
+                            layer.alert(data.string,{icon: 2},function(index){
+                                location.href="{:U('User/index')}";
+                            }); 
+                    }else{
+                        layer.alert(data.string,{icon: 2});
+                    }
+                });
+              layer.close(index);
+            });
+        }
+       
+
+    }
+    </script>
+</html>

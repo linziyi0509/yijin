@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>综合应用管理平台</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/css/css.css">
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.4.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/easyui1.3/jquery.easyui.min.js"></script>
+	<script src="__PUBLIC__/layer/layer.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/public.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/date.js"></script>
+	<script>
+		function confirmInfo(id){
+			var win = $.messager.progress({
+				 title:'请稍等',
+				msg:'正在下载...'
+			 });
+			 $.post('/admin/cards/list_page',{daochu:1,cardcouponsid:id},function(data){
+			 	data = eval('['+data+']');
+			 	data = data[0];
+			 	$.messager.progress('close');
+				 if(data.result){
+					window.location.href='/cards.xls';
+				 }
+			 });
+		}
+		function cancelInfo(){
+			parent.layer.closeAll();
+		}
+	</script>
+	<style type="text/css">
+		table.altrowstable {
+			font-family: verdana,arial,sans-serif;
+			font-size:11px;
+			color:#333333;
+			border-width: 1px;
+			border-color: #a9c6c9;
+			border-collapse: collapse;
+		}
+		table.altrowstable th {
+			border-width: 1px;
+			padding: 8px;
+			border-style: solid;
+			border-color: #a9c6c9;
+		}
+		table.altrowstable td {
+			border-width: 1px;
+			padding: 8px;
+			border-style: solid;
+			border-color: #a9c6c9;
+		}
+		.oddrowcolor{
+			background-color:#d4e3e5;
+		}
+		.evenrowcolor{
+			background-color:#c3dde0;
+		}
+	</style>
+</head>
+<body>
+	<table class="altrowstable" id="alternatecolor" style="text-align:center;" width="80%">
+		<tr>
+			<td>卡号</td>
+			<td>卡密</td>
+			<td>创建时间</td>
+		</tr>
+		<volist name="result" id="vo">
+			<tr>
+				<td>{$vo['cardno']}</td>
+				<td>{$vo['cardpwd']}</td>
+				<td>{$vo['createtime']}</td>
+			</tr>
+		</volist>
+		<tr align="center">
+			<td colspan="3">
+				<button style="width:10%;" type="button" name="confirm" onclick="confirmInfo({$id})">确认</button>
+				<button style="width:10%;" type="button" name="confirm" onclick="cancelInfo()">取消</button>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>	

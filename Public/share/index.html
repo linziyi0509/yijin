@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="trimview" content="1.0.0">
+		<meta charset="utf-8" />
+		<title>小木匠</title>
+		<link rel="stylesheet" href="index.css">		
+	</head>
+	<body>
+		<div class="con">
+			  <div class="text">小木匠</div>
+			<p class="tips">点击二维码下载</p>
+			<div class="pic_box">
+				
+				<div class="pic">
+					<div>
+						<a href="javascript:;"><img src="img/CFtV.png" alt="" /></a>
+						<span>苹果客户端</span>
+					</div>
+					<div>
+						<a href="javascript:;"><img src="img/android.png" alt="" /></a>
+						<span>安卓客户端</span>
+					</div>
+				</div>
+			</div>		
+		</div>
+		<div id="weixin-tip" class="weixin-tip">
+			<img src="img/tip.png" alt="微信扫描打开APP下载链接提示代码优化" alt="微信打开" />
+		</div>	
+	<script type="text/javascript">	
+		(function(win, navigator) {
+			var jinzhi=0;
+				document.addEventListener("touchmove",function(e){
+					if(jinzhi==0){
+					e.preventDefault();
+					e.stopPropagation();
+				}
+			},false);
+			var is_weixin = (function() {
+					return navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1
+				})(),
+				elTip = document.getElementById('weixin-tip'),
+				winHeight = typeof win.innerHeight != 'undefined' ? win.innerHeight : document.documentElement.clientHeight; //兼容IOS，不需要的可以去掉
+			var init = function() {
+				if (is_weixin) {
+					elTip.style.height = winHeight + 'px'; //兼容IOS弹窗整屏
+					elTip.style.display = 'block';
+				}
+			}
+			init();
+		})(window, navigator);
+	</script>
+		
+	</body>
+</html>

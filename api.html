@@ -1,0 +1,826 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>用户API描述</title>
+    <link href="/Public/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="http://123.57.248.101/Public/admin/css/base.css" media="all">
+    <link rel="stylesheet" type="text/css" href="http://123.57.248.101/Public/admin/css/module.css">
+    <link rel="stylesheet" type="text/css" href="http://123.57.248.101/Public/admin/css/style.css" media="all">
+
+	<style>
+	html,body{
+    	padding:0;
+	}
+    .data-table{
+    	margin:0;
+    }
+    .new{
+    	color:red;
+    }
+    .old{
+    	color:orange;
+    }
+    </style>
+</head> 
+<div class="main-title" style="margin:10px auto;width:600px">
+	status="1001" 时表示出现错误，message为错误的描述<br>
+	status="1000" 时表示正常返回，data里为相应数据<br>
+	项目跟域名 http://zhaiyi.bjqttd.com<br>
+</div>
+<div class="data-table table-striped">
+<table class="">
+    <thead>
+        <tr>
+	        <th width="1%"></th>
+			<th class="" width="12%">请求地址</th>
+			<th class="" width="10%">接口描述</th>
+			<th class="" width="15%">携带参数</th>
+			<th class="" width="40%">返回信息</th>
+			<th class="">备注</th>
+		</tr>
+    </thead>
+    <tbody>
+    	<tr><td colspan="6"><strong>综合</strong>&nbsp;&nbsp;<a href="api/log/index?cname=common" target="_blank">查看日志</a></td></tr>
+		<tr>
+			<td></td>
+			<td><a href="api/common/tellusadd?userid=&token=&content=xxx" target="_blank">api/common/tellusadd</a></td>
+			<td>意见反馈<sup> 1118</sup></td>
+			<td>content(反馈内容 必填)<br>usertel(联系方式 可空)<br>userid(用户id 可空)<br>token(用户令牌 可空)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td>未登录时 userid、token 可空</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/common/sendmessage?mobile=xxx" target="_blank">api/common/sendmessage</a></td>
+			<td>发送短信<sup> 1118</sup></td>
+			<td>mobile(手机号 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td>因缺少短信接口默认生成1234的验证码</td>
+		</tr>
+		<!-- <tr style="color:orange">
+			<td></td>
+			<td><a href="api/common/citylist" target="_blank">api/common/citylist</a></td>
+			<td>城市列表<sup> 0810</sup></td>
+			<td>无</td>
+			<td>{"status":"1000","message":"成功","data":[{"cityid":"城市id","cityname":"城市名称","enword":"首字母"},{...}]}
+			</td>
+			<td>无分页<br><span style="color:red">08月10日增加返回值enword</span></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/common/catelist" target="_blank">api/common/catelist</a></td>
+			<td>全部分类<sup> 0817</sup></td>
+			<td>无</td>
+			<td>{"status":"1000","message":"成功","data":[{"title":"分类名称","actkey":"类型关键字","child":[{"cateid":"分类id","title":"分类名称"}]},{...}]}
+			</td>
+			<td>无分页<br>根据actkey判断跳转页面</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/common/sign?userid=xxx&token=xxx" target="_blank">api/common/sign</a></td>
+			<td>签到<sup> 0818</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/common/advlist?cateid=xxx" target="_blank">api/common/advlist</a></td>
+			<td>广告列表<sup> 0818</sup></td>
+			<td>cateid(分类id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"picture":"图片地址"},{...}]}
+			</td>
+			<td>无分页<br>cateid:74=首页 75=服装</td>
+		</tr>
+
+		<tr><td colspan="6"><strong>会员</strong>&nbsp;&nbsp;<a href="api/log/index?cname=user" target="_blank">查看日志</a></td></tr>
+		<tr>
+			<td></td>
+			<td><a href="api/user/login?mobile=xxx&pswd=xxx&jpushrid=" target="_blank">api/user/login</a></td>
+			<td>登录<sup> 0807</sup></td>
+			<td>mobile(账号 必填)<br>pswd(密码 必填)<br>jpushrid(极光RID 可空)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":{"userid":"用户id","token":"用户令牌","nickname":"昵称","picture":"头像","mobile":"手机号"}}
+			</td>
+			<td>jpushrid 可空</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/user/regedit?mobile=xxx&pswd=xxx&code=xxx&jpushrid=" target="_blank">api/user/regedit</a></td>
+			<td>注册<sup> 0807</sup></td>
+			<td>mobile(账号 必填)<br>pswd(密码 必填)<br>code(验证码 必填)<br>jpushrid(极光RID 可空)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":{"userid":"用户id","token":"用户令牌","nickname":"昵称","picture":"头像","mobile":"手机号"}}
+			</td>
+			<td>jpushrid 可空<br>注册后已自动登录无需再跳转登录页面</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/user/findpswd?mobile=xxx&pswd=xxx&code=xxx" target="_blank">api/user/findpswd</a></td>
+			<td>找回密码<sup> 0812</sup></td>
+			<td>mobile(账号 必填)<br>pswd(新密码 必填)<br>code(验证码 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td>找回密码无需输入旧密码UI错误</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/user/uppswd?userid=xxx&token=xxx&opswd=xxx&npswd=xxx" target="_blank">api/user/uppswd</a></td>
+			<td>更新密码<sup> 0812</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>opswd(旧密码 必填)<br>npswd(新密码 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td>修改成功后会刷新令牌token所以需跳转到登录页重新登录拿取新的token</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/user/upmyinfo?userid=xxx&token=xxx&nickname=" target="_blank">api/user/upmyinfo</a></td>
+			<td>更新个人信息<sup> 0812</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>nickname(昵称 可空)<br>FILES(单图上传 可空)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":{"nickname":"昵称","picture":"头像"}}
+			</td>
+			<td>FILES为文件控件不是参数<br>如只修改昵称可不传递FILES<br>如只修改头像可不传递nickname</td>
+		</tr>
+
+		<tr><td colspan="6"><strong>论坛</strong>&nbsp;&nbsp;<a href="api/log/index?cname=forum" target="_blank">查看日志</a></td></tr>
+		<tr>
+			<td></td>
+			<td><a href="api/forum/catelist" target="_blank">api/forum/catelist</a></td>
+			<td>分类列表</td>
+			<td>无</td>
+			<td>{"status":"1000","message":"成功","data":[{"id":"分类ID","title":"名称","picurl":"图标"},{...}]}
+			</td>
+			<td>无分页</td>
+		</tr>
+		<tr style="color:orange">
+			<td></td>
+			<td><a href="api/forum/forumlist?cateid=xxx&pageid=xxx" target="_blank">api/forum/forumlist</a></td>
+			<td>帖子列表<sup> 0810</sup></td>
+			<td>cateid(分类id 必填)<br>pageid(分页id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"nickname":"作者昵称","picture":"作者头像","id":"帖子ID","title":"帖子标题","pictures":"逗号分隔的帖子图片","updatetime":"发布时间","content":"帖子内容","counts":"评论数"},{...}]}
+			</td>
+			<td>cateid=1表示新手报到<br>cateid=3表示下午茶<br>分页获取<br>若无数据status="1000" data为空数组<br>帖子详情使用此列表缓存<br><span style="color:red">08月10日增加返回值counts</span></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/forum/add?userid=xxx&token=xxx&cateid=xxx&title=xxx&content=xxx" target="_blank">api/forum/add</a></td>
+			<td>发布帖子<sup> 0805</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>cateid(分类id 必填)<br>title(标题 必填)<br>content(内容 必填)<br>FILES(多图上传 可空)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td>FILES为文件控件不是参数</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/forum/comlist?forumid=xxx&pageid=xxx" target="_blank">api/forum/comlist</a></td>
+			<td>评论列表<sup> 0805</sup></td>
+			<td>forumid(帖子id 必填)<br>pageid(分页id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"nickname":"评论者昵称","picture":"评论者头像","updatetime":"评论时间","content":"评论内容"},{...}]}
+			</td>
+			<td>分页获取<br>若无数据status="1000" data为空数组</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/forum/comadd?userid=xxx&token=xxx&forumid=xxx&content=xxx" target="_blank">api/forum/comadd</a></td>
+			<td>发布评论<sup> 0805</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>forumid(帖子id 必填)<br>content(内容 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td></td>
+		</tr>
+
+		<tr><td colspan="6"><strong>丢吧</strong>&nbsp;&nbsp;<a href="api/log/index?cname=lostbar" target="_blank">查看日志</a></td></tr>
+		<tr>
+			<td></td>
+			<td><a href="api/lostbar/lostlist?cateid=xxx&pageid=xxx" target="_blank">api/lostbar/lostlist</a></td>
+			<td>帖子列表<sup> 0805</sup></td>
+			<td>cateid(分类id 必填)<br>pageid(分页id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"nickname":"作者昵称","picture":"作者头像","id":"帖子ID","pictures":"逗号分隔的帖子图片","updatetime":"发布时间","content":"帖子内容"},{...}]}
+			</td>
+			<td>cateid=22表示遗失 cateid=23表示拾到<br>分页获取<br>若无数据status="1000" data为空数组<br>帖子详情使用此列表缓存</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/lostbar/add?userid=xxx&token=xxx&cateid=xxx&content=xxx" target="_blank">api/lostbar/add</a></td>
+			<td>发布帖子<sup> 0805</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>cateid(分类id 必填)<br>content(内容 必填)<br>FILES(多图上传 可空)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td>FILES为文件控件不是参数</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/lostbar/comlist?lostid=xxx&pageid=xxx" target="_blank">api/lostbar/comlist</a></td>
+			<td>评论列表<sup> 0805</sup></td>
+			<td>lostid(帖子id 必填)<br>pageid(分页id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"nickname":"评论者昵称","picture":"评论者头像","updatetime":"评论时间","content":"评论内容"},{...}]}
+			</td>
+			<td>分页获取<br>若无数据status="1000" data为空数组</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/lostbar/comadd?userid=xxx&token=xxx&lostid=xxx&content=xxx" target="_blank">api/lostbar/comadd</a></td>
+			<td>发布评论<sup> 0805</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>lostid(帖子id 必填)<br>content(内容 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td></td>
+		</tr>
+
+		<tr><td colspan="6"><strong>生活资讯</strong>&nbsp;&nbsp;<a href="api/log/index?cname=lifenews" target="_blank">查看日志</a></td></tr>
+		<tr>
+			<td></td>
+			<td><a href="api/lifenews/newslist?pageid=xxx" target="_blank">api/lifenews/newslist</a></td>
+			<td>资讯列表<sup> 0806</sup></td>
+			<td>pageid(分页id 必填)</td>
+			<td>{"status":"1000","message":"成功","data":[{"nickname":"作者昵称","picture":"作者头像","updatetime":"发布时间","content":"帖子内容"},{...}]}
+			</td>
+			<td>分页获取<br>若无数据status="1000" data为空数组</td>
+		</tr>
+
+		<tr><td colspan="6"><strong>农业产品</strong>&nbsp;&nbsp;<a href="api/log/index?cname=agrproduct" target="_blank">查看日志</a></td></tr>
+		<tr>
+			<td></td>
+			<td><a href="api/agrproduct/catelist" target="_blank">api/agrproduct/catelist</a></td>
+			<td>分类列表<sup> 0806</sup></td>
+			<td>无</td>
+			<td>{"status":"1000","message":"成功","data":[{"id":"分类ID","title":"名称","picurl":"图标"},{...}]}
+			</td>
+			<td>无分页<br>农产品首页上部</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/agrproduct/hotlist?pageid=xxx" target="_blank">api/agrproduct/hotlist</a></td>
+			<td>热门列表<sup> 0806</sup></td>
+			<td>pageid(分页id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"id":"产品ID","picture":"图片地址","title":"产品标题","likenum":"点赞数","price":"产品价钱"},{...}]}
+			</td>
+			<td>分页获取<br>若无数据status="1000" data为空数组<br>农产品首页下部</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/agrproduct/productlist?cateid=xxx&pageid=xxx" target="_blank">api/agrproduct/productlist</a></td>
+			<td>产品列表<sup> 0806</sup></td>
+			<td>cateid(分类id 必填)<br>pageid(分页id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"id":"产品ID","picture":"图片地址","title":"产品标题","likenum":"点赞数","price":"产品价钱"},{...}]}
+			</td>
+			<td>分页获取<br>若无数据status="1000" data为空数组</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/agrproduct/searchlist?key=xxx&pageid=xxx" target="_blank">api/agrproduct/searchlist</a></td>
+			<td>搜索列表<sup> 0806</sup></td>
+			<td>key(关键词 必填)<br>pageid(分页id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"id":"产品ID","picture":"图片地址","title":"产品标题","likenum":"点赞数","price":"产品价钱"},{...}]}
+			</td>
+			<td>分页获取<br>若无数据status="1000" data为空数组</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/agrproduct/detail?productid=xxx&userid=&token=" target="_blank">api/agrproduct/detail</a></td>
+			<td>产品详情<sup> 0806</sup></td>
+			<td>productid(产品id 必填)<br>userid(用户id 可空)<br>token(用户令牌 可空)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":{"title":"产品标题","price":"产品价钱","pictures":"逗号分隔的多图片","author":"联系人","tel":"联系电话","likenum":"点赞数","islike":"是否已赞","commentcount":"评论总数","commentlist":[{"updatetime":"时间","nickname":"昵称","content":"内容"},{...}]}}
+			</td>
+			<td>commentlist为最新的2条评论<br>若无评论commentlist为[]<br>islike=1 表示已赞  =0表示未赞<br>未登录时userid token 可空</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/agrproduct/comlist?productid=xxx&pageid=xxx" target="_blank">api/agrproduct/comlist</a></td>
+			<td>评论列表<sup> 0806</sup></td>
+			<td>productid(产品id 必填)<br>pageid(分页id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"updatetime":"时间","nickname":"昵称","content":"内容"},{...}]}
+			</td>
+			<td>分页获取<br>若无数据status="1000" data为空数组</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/agrproduct/comadd?userid=xxx&token=xxx&productid=xxx&content=xxx" target="_blank">api/agrproduct/comadd</a></td>
+			<td>发布评论<sup> 0806</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>productid(产品id 必填)<br>content(内容 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/agrproduct/setlike?userid=xxx&token=xxx&productid=xxx" target="_blank">api/agrproduct/setlike</a></td>
+			<td>点赞|取消赞<sup> 0806</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>productid(产品id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td>系统自动判断是点赞还是取消赞</td>
+		</tr>
+
+		<tr><td colspan="6"><strong>本地秀场</strong>&nbsp;&nbsp;<a href="api/log/index?cname=localshow" target="_blank">查看日志</a></td></tr>
+		<tr>
+			<td></td>
+			<td><a href="api/localshow/locallist?pageid=xxx&userid=&token=" target="_blank">api/localshow/locallist</a></td>
+			<td>文章列表<sup> 0806</sup></td>
+			<td>pageid(分页id 必填)<br>userid(用户id 可空)<br>token(用户令牌 可空)</td>
+			<td>{"status":"1000","message":"成功","data":[{"nickname":"作者昵称","picture":"作者头像","updatetime":"发布时间","content":"帖子内容","pictures":"逗号分隔的图片","islike":"是否已赞","comlist":[{"nickname":"昵称","content":"内容"},{...}],"likelist":[{"nickname":"昵称"},{...}]},{...}]}
+			</td>
+			<td>分页获取<br>若无数据status="1000" data为空数组<br>若无评论comlist=[]<br>若无点赞likelist=[]<br>islike=1 表示已赞  =0表示未赞<br>未登录时userid token 可空</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/localshow/add?userid=xxx&token=xxx&content=xxx" target="_blank">api/localshow/add</a></td>
+			<td>发布文章<sup> 0806</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>content(内容 必填)<br>FILES(多图上传 可空)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td>FILES为文件控件不是参数</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/localshow/comadd?userid=xxx&token=xxx&localid=xxx&content=xxx" target="_blank">api/localshow/comadd</a></td>
+			<td>发布评论<sup> 0806</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>localid(文章id 必填)<br>content(内容 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/localshow/setlike?userid=xxx&token=xxx&localid=xxx" target="_blank">api/localshow/setlike</a></td>
+			<td>点赞|取消赞<sup> 0806</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>localid(文章id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td>系统自动判断是点赞还是取消赞</td>
+		</tr>
+
+		<tr><td colspan="6"><strong>24小时超市</strong>&nbsp;&nbsp;<a href="api/log/index?cname=market" target="_blank">查看日志</a></td></tr>
+		<tr>
+			<td></td>
+			<td><a href="api/market/catelist" target="_blank">api/market/catelist</a></td>
+			<td>首页分类列表<sup> 0813</sup></td>
+			<td>无</td>
+			<td>{"status":"1000","message":"成功","data":[{"cateid":"分类id","catename":"分类名称"}]}
+			</td>
+			<td>无分页</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/market/indexlist?cateid=xxx" target="_blank">api/market/indexlist</a></td>
+			<td>首页商品列表<sup> 0813</sup></td>
+			<td>cateid(分类id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"hotlist":[{"productid":"商品id","title":"商品标题","oprice":"原价","nprice":"现价","picture":"图片地址"},{...}],"alllist":[{"productid":"商品id","title":"商品标题","oprice":"原价","nprice":"现价","picture":"图片地址"},{...}]}]}
+			</td>
+			<td>无分页<br>hotlist为优惠商品列表 若无数据为[]<br>alllist为该分类商品列表 若无数据为[]</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/market/prolist?cateid=xxx&ishot=&pageid=xxx" target="_blank">api/market/prolist</a></td>
+			<td>商品列表<sup> 0813</sup></td>
+			<td>cateid(分类id 必填)<br>pageid(分页id 必填)<br>ishot(是否优惠 可空)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"productid":"商品id","title":"商品标题","oprice":"原价","nprice":"现价","picture":"图片地址"},{...}]}
+			</td>
+			<td>分页获取<br>若从首页优惠按钮点击 则传递ishot=1 <br>若从首页分类按钮点击 则传递ishot=0或不传递</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/market/searchlist?key=xxx&pageid=xxx" target="_blank">api/market/searchlist</a></td>
+			<td>搜索列表<sup> 0813</sup></td>
+			<td>key(关键词 必填)<br>pageid(分页id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"productid":"商品id","title":"商品标题","oprice":"原价","nprice":"现价","picture":"图片地址"},{...}]}
+			</td>
+			<td>分页获取</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/market/detail?productid=xxx" target="_blank">api/market/detail</a></td>
+			<td>商品详情<sup> 0813</sup></td>
+			<td>productid(商品id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":{"companyid":"店铺id","title":"商品标题","oprice":"原价","nprice":"现价","pictures":"逗号分隔的多图片","tel":"客服电话","salernum":"销量","commentcount":"评论总数","commentlist":[{"updatetime":"时间","nickname":"昵称","content":"内容"},{...}]}}
+			</td>
+			<td>commentlist为最新的2条评论<br>若无评论commentlist为[]<br>把月销量改成总销量<br>把右上角的点赞去掉<br><span style="color:red">进入店铺先不做<br>点击购买先不做<br>加入购物车先不做</span></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/market/comlist?productid=xxx&pageid=xxx" target="_blank">api/market/comlist</a></td>
+			<td>评论列表<sup> 0813</sup></td>
+			<td>productid(商品id 必填)<br>pageid(分页id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"updatetime":"时间","nickname":"昵称","content":"内容"},{...}]}
+			</td>
+			<td>分页获取</td>
+		</tr>
+
+		<tr><td colspan="6"><strong>扫好货</strong>&nbsp;&nbsp;<a href="api/log/index?cname=timebuy" target="_blank">查看日志</a></td></tr>
+		<tr>
+			<td></td>
+			<td><a href="api/timebuy/catelist" target="_blank">api/timebuy/catelist</a></td>
+			<td>场次列表<sup> 0817</sup></td>
+			<td>无</td>
+			<td>
+				{"status":"1000","message":"成功","data":[{"cateid":"分类id","title":"分类名称"},{...}]}
+			</td>
+			<td>无分页<br><span style="color:red">08月17日新增接口</span></td>
+		</tr>
+		<tr style="color:orange">
+			<td></td>
+			<td><a href="api/timebuy/prolist?cateid=xxx&pageid=xxx" target="_blank">api/timebuy/prolist</a></td>
+			<td>商品列表<sup> 0817</sup></td>
+			<td>cateid(分类id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"productid":"商品id","title":"商品标题","cprice":"节约价","nprice":"现价","picture":"图片地址","salernum":"销量"},{...}]}
+			</td>
+			<td>分页获取<br><del style="color:red">cateid 固定为 8点场=34 12点场=35 16点场=36 20点场=37</del><br><span style="color:red">08月17日修改接口cateid为接口获取不为固定值</span></td>
+		</tr>
+		<tr style="color:orange">
+			<td></td>
+			<td><a href="api/timebuy/detail?productid=xxx&userid=&token=" target="_blank">api/timebuy/detail</a></td>
+			<td>商品品详情<sup> 0817</sup></td>
+			<td>productid(商品id 必填)<br>userid(用户id 可空)<br>token(用户令牌 可空)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":{"companyid":"店铺id","title":"标题","pictures":"逗号分隔的多图片","nprice":"现价","oprice":"原价","cprice":"节约价","tel":"客服电话","salernum":"总销量","likenum":"点赞总数","islike":"是否已赞","commentcount":"评论总数","detail":"<span style="color:red"><del>WEBVIEW地址</del> 商品详情</span>",<span style="color:red">,"canbuy":"购买按钮是否可点"</span>"commentlist":[{"updatetime":"时间","nickname":"昵称","content":"内容"},{...}]}}
+			</td>
+			<td>commentlist为最新的2条评论<br>若无评论commentlist为[]<br>islike=1 表示已赞  =0表示未赞<br>未登录时userid token 可空<br><del style="color:red">detail为商品参数的webview地址 请使用webview控件加载</del><br><span style="color:red">进入店铺先不做<br>点击购买先不做<br>限时商品不能加入购物车</span><br><del style="color:red">应根据当前时间判断点击购买按钮是否可用 exp:8点场表示8点-12点(下一场)可购买 12点场表示12点-16点可购买 20点场表示20点-24点(凌晨)可购买 凌晨-8点期间全不可购买</del><span style="color:red">canbuy为购买按钮是否可用</span><br><span style="color:red">08月17日增加返回值canbuy同时修改detail</span></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/timebuy/comlist?productid=xxx&pageid=xxx" target="_blank">api/timebuy/comlist</a></td>
+			<td>评论列表<sup> 0814</sup></td>
+			<td>productid(商品id 必填)<br>pageid(分页id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"updatetime":"时间","nickname":"昵称","content":"内容"},{...}]}
+			</td>
+			<td>分页获取</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/timebuy/setlike?userid=xxx&token=xxx&productid=xxx" target="_blank">api/timebuy/setlike</a></td>
+			<td>点赞|取消赞<sup> 0814</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>productid(商品id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td>系统自动判断是点赞还是取消赞</td>
+		</tr>
+
+		<tr><td colspan="6"><strong>淘婚</strong>&nbsp;&nbsp;<a href="api/log/index?cname=marry" target="_blank">查看日志</a></td></tr>
+		<tr>
+			<td></td>
+			<td><a href="api/marry/indexlist" target="_blank">api/marry/indexlist</a></td>
+			<td>首页列表<sup> 0814</sup></td>
+			<td>无</td>
+			<td>
+				{"status":"1000","message":"成功","data":{"catelist":[{"cateid":"分类id","title":"分类名称","picture":"分类图片"},{...}],"hotlist":[{"productid":"服务id","title":"服务名称","nprice":"服务售价","picture":"服务图片"},{...}]}}
+			</td>
+			<td>无分页</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/marry/prolist?cateid=xxx&pageid=xxx" target="_blank">api/marry/prolist</a></td>
+			<td>商品列表<sup> 0817</sup></td>
+			<td>cateid(分类id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"productid":"商品id","title":"商品标题","cprice":"节约价","nprice":"现价","picture":"图片地址","likenum":"点赞数"},{...}]}
+			</td>
+			<td>分页获取<br>没有预约次数 有点赞次数</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/marry/detail?productid=xxx&userid=&token=" target="_blank">api/marry/detail</a></td>
+			<td>商品详情<sup> 0817</sup></td>
+			<td>productid(商品id 必填)<br>userid(用户id 可空)<br>token(用户令牌 可空)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":{"title":"标题","pictures":"逗号分隔的多图片","nprice":"现价","oprice":"原价","cprice":"节约价","tel":"客服电话","address":"地址","times":"营业时间","likenum":"点赞总数","islike":"是否已赞","commentcount":"评论总数","commentlist":[{"updatetime":"时间","nickname":"昵称","content":"内容"},{...}]}}
+			</td>
+			<td>commentlist为最新的2条评论<br>若无评论commentlist为[]<br>islike=1 表示已赞  =0表示未赞<br>未登录时userid token 可空</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/marry/comlist?productid=xxx&pageid=xxx" target="_blank">api/marry/comlist</a></td>
+			<td>评论列表<sup> 0817</sup></td>
+			<td>productid(产品id 必填)<br>pageid(分页id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"updatetime":"时间","nickname":"昵称","content":"内容"},{...}]}
+			</td>
+			<td>分页获取<br>若无数据status="1000" data为空数组</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/marry/comadd?userid=xxx&token=xxx&productid=xxx&content=xxx" target="_blank">api/marry/comadd</a></td>
+			<td>发布评论<sup> 0817</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>productid(产品id 必填)<br>content(内容 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/marry/setlike?userid=xxx&token=xxx&productid=xxx" target="_blank">api/marry/setlike</a></td>
+			<td>点赞|取消赞<sup> 0817</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>productid(产品id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td>系统自动判断是点赞还是取消赞</td>
+		</tr>
+
+		<tr><td colspan="6"><strong>新店开业</strong>&nbsp;&nbsp;<a href="api/log/index?cname=shop" target="_blank">查看日志</a></td></tr>
+		<tr style="color:orange">
+			<td></td>
+			<td><a href="api/shop/shoplist?pageid=xxx" target="_blank">api/shop/shoplist</a></td>
+			<td>店铺列表<sup> 0818</sup></td>
+			<td>pageid(分页id 必填)</td>
+			<td>
+				{"status":"1000","message":"成功","data":[{"companyid":"店铺id","name":"店铺名称","picture":"店铺图片"<span style="color:red">,"logo":"店铺logo","description":"店铺描述"</span>},{...}]}
+			</td>
+			<td>分页获取<span style="color:red"><br>08月20日新增返回值logo description</span></td>
+		</tr>
+		<tr style="color:orange">
+			<td></td>
+			<td><a href="api/shop/searchlist?key=xxx&pageid=xxx" target="_blank">api/shop/searchlist</a></td>
+			<td>搜索列表<sup> 0818</sup></td>
+			<td>key(关键词 必填)<br>pageid(分页id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"companyid":"店铺id","name":"店铺名称","picture":"店铺图片"<span style="color:red">,"logo":"店铺logo","description":"店铺描述"</span>},{...}]}
+			</td>
+			<td>分页获取<span style="color:red"><br>08月20日新增返回值logo description</span></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/shop/prolist?companyid=xxx&pageid=xxx" target="_blank">api/shop/prolist</a></td>
+			<td>进入店铺列表<sup> 0818</sup></td>
+			<td>companyid(店铺id 必填)<br>pageid(分页id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":{"shop":{"name":"店铺名称","picture":"店铺图片","number":"店铺编号"},"list":[{"id":"产品ID","picture":"图片地址","title":"产品标题","likenum":"点赞数","price":"产品价钱"},{...}]}}
+			</td>
+			<td>分页获取<br><span style="color:red">无收藏按钮</span><br>产品详情即农产品详情 使用农业产品详情接口(agrproduct/detail)</td>
+		</tr>
+
+		<tr><td colspan="6"><strong>服装</strong>&nbsp;&nbsp;<a href="api/log/index?cname=dress" target="_blank">查看日志</a></td></tr>
+		<tr>
+			<td></td>
+			<td><a href="api/dress/catelist" target="_blank">api/dress/catelist</a></td>
+			<td>分类列表<sup> 0818</sup></td>
+			<td>无</td>
+			<td>
+				{"status":"1000","message":"成功","data":[{"cateid":"分类id","title":"分类名称"},{...}]}
+			</td>
+			<td>无分页</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/dress/prolist?cateid=xxx&pageid=xxx" target="_blank">api/dress/prolist</a></td>
+			<td>商品列表<sup> 0818</sup></td>
+			<td>cateid(分类id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"productid":"商品id","title":"商品标题","cprice":"节约价","nprice":"现价","picture":"图片地址","salernum":"销量"},{...}]}
+			</td>
+			<td>分页获取<br><span style="color:red">轮播图使用common/advlist接口获取</span></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/dress/detail?productid=xxx&userid=&token=" target="_blank">api/dress/detail</a></td>
+			<td>商品详情<sup> 0818</sup></td>
+			<td>productid(商品id 必填)<br>userid(用户id 可空)<br>token(用户令牌 可空)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":{"companyid":"店铺id","title":"标题","pictures":"逗号分隔的多图片","nprice":"现价","oprice":"原价","cprice":"节约价","tel":"客服电话","salernum":"总销量","likenum":"点赞总数","islike":"是否已赞","commentcount":"评论总数","detail":"商品详情","commentlist":[{"updatetime":"时间","nickname":"昵称","content":"内容"},{...}]}}
+			</td>
+			<td>commentlist为最新的2条评论<br>若无评论commentlist为[]<br>islike=1 表示已赞  =0表示未赞<br>未登录时userid token 可空<br><br><span style="color:red">进入店铺先不做<br>点击购买先不做<br>加入购物车先不做</span></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/dress/comlist?productid=xxx&pageid=xxx" target="_blank">api/dress/comlist</a></td>
+			<td>评论列表<sup> 0818</sup></td>
+			<td>productid(商品id 必填)<br>pageid(分页id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"updatetime":"时间","nickname":"昵称","content":"内容"},{...}]}
+			</td>
+			<td>分页获取</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/dress/setlike?userid=xxx&token=xxx&productid=xxx" target="_blank">api/dress/setlike</a></td>
+			<td>点赞|取消赞<sup> 0818</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>productid(商品id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td>系统自动判断是点赞还是取消赞</td>
+		</tr>
+
+		<tr><td colspan="6"><strong>美食</strong>&nbsp;&nbsp;<a href="api/log/index?cname=food" target="_blank">查看日志</a></td></tr>
+		<tr>
+			<td></td>
+			<td><a href="api/food/navlist?cityid=xxx" target="_blank">api/food/navlist</a></td>
+			<td>导航列表<sup> 0819</sup></td>
+			<td>cityid(城市id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":{"piclist":[{"picture":"图片地址"},{...}],"catelist":[{"cateid":"分类id","catename":"分类名称"},{...}],"countrylist":[{"countryid":"区域id","countryname":"区域名称"},{...}],"orderlist":[{"orderid":"排序id","ordername":"排序名称"},{...}],"searchlist":[{"searchid":"筛选id","searchname":"筛选名称"},{...}]}}
+			</td>
+			<td>无分页<br>piclist为广告轮播图<br>catelist为分类列表<br>countrylist为区域列表<br>orderlist为排序列表<br>searchlist为筛选列表</td>
+		</tr>
+
+		<tr style="color:orange">
+			<td></td>
+			<td><a href="api/food/shoplist?cityid=xxx&pageid=xxx&cateid=&countryid=&searchid=&orderid=&lat=&lng=" target="_blank">api/food/shoplist</a></td>
+			<td>店铺列表<sup> 0905</sup></td>
+			<td>pageid(分页id 必填)<br>cityid(城市id 必填)<br>cateid(分类id 选填)<br>countryid(区域id 选填)<br>searchid(筛选id 选填)<br>orderid(排序id 选填)<br>lat(维度 选填)<br>lng(经度 选填)</td>
+			<td>
+				{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"shopid":"店铺id","shopname":"店铺名称","picture":"店铺图片","address":"店铺地址","star":"店铺星级","discount":"折扣","meter":"距离"},{...}]}
+				}
+			</td>
+			<td>分页获取<br>cateid countryid searchid orderid 均为导航接口返回 若不填或填0表示 不限</td>
+		</tr>
+		<tr style="color:orange">
+			<td></td>
+			<td><a href="api/food/detail?shopid=xxx" target="_blank">api/food/detail</a></td>
+			<td>店铺详情<sup> 0905</sup></td>
+			<td>shopid(店铺id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":{"id":"店铺id","shopname":"店铺名称","picture":"店铺图片","address":"店铺地址","star":"星级","tel":"客服电话","commentcount":"评论总数","recommendfood":"推荐菜品","commentlist":[{"updatetime":"时间","nickname":"昵称","content":"内容"},{...}]}}
+			</td>
+			<td>commentlist为最新的2条评论<br>若无评论commentlist为[]</td>
+		</tr>
+		<tr style="color:orange">
+			<td></td>
+			<td><a href="api/food/prolist?shopid=xxx&pageid=xxx" target="_blank">api/food/prolist</a></td>
+			<td>菜品列表<sup> 0905</sup></td>
+			<td>shopid(菜品id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"id":"菜品id","title":"菜品标题","oprice":"原价","nprice":"现价","picture":"图片地址"},{...}]}
+			</td>
+			<td>分页获取</td>
+		</tr>
+		<tr style="color:orange">
+			<td></td>
+			<td><a href="api/food/comlist?shopid=xxx&pageid=xxx" target="_blank">api/food/comlist</a></td>
+			<td>评论列表<sup> 0905</sup></td>
+			<td>shopid(店铺id 必填)<br>pageid(分页id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"updatetime":"时间","nickname":"昵称","content":"内容"},{...}]}
+			</td>
+			<td>分页获取</td>
+		</tr>
+		<tr style="color:orange">
+			<td></td>
+			<td><a href="api/food/comadd?userid=xxx&token=xxx&shopid=xxx&content=xxx" target="_blank">api/food/comadd</a></td>
+			<td>发布评论<sup> 0905</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>shopid(商家id 必填)<br>content(内容 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td></td>
+		</tr>
+
+
+		<tr><td colspan="6"><strong>订单</strong>&nbsp;&nbsp;<a href="api/log/index?cname=order" target="_blank">查看日志</a></td></tr>
+		<tr>
+			<td></td>
+			<td><a href="api/order/addlist?userid=xxx&token=xxx" target="_blank">api/order/addlist</a></td>
+			<td>收货地址列表<sup> 0922</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"addressid":"地址id","provinceid":"省份id","cityid":"城市id","countryid":"区域id","provincename":"省份名称","cityname":"城市名称","countryname":"区域名称","address":"详细地址","utel":"联系电话","uname":"联系人","isdefault":"是否默认地址","postprice":"快递费用"},{...}]}
+			</td>
+			<td>无分页<br>快递费用在订单详情页面使用</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/order/addone?userid=xxx&token=xxx" target="_blank">api/order/addone</a></td>
+			<td>默认地址列表<sup> 1008</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":{"addressid":"地址id","provinceid":"省份id","cityid":"城市id","countryid":"区域id","provincename":"省份名称","cityname":"城市名称","countryname":"区域名称","address":"详细地址","utel":"联系电话","uname":"联系人","isdefault":"是否默认地址","postprice":"快递费用"}}
+			</td>
+			<td></td>
+		</tr>
+
+		<tr>
+			<td></td>
+			<td><a href="api/order/addadd?userid=xxx&token=xxx&provinceid=xxx&cityid=xxx&countryid=xxx&address=xxx&utel=xxx&uname=xxx" target="_blank">api/order/addadd</a></td>
+			<td>添加收货地址<sup> 0922</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>provinceid(省份id 必填)<br>cityid(城市id 必填)<br>countryid(区域id 必填)<br>address(详细地址 必填)<br>utel(联系电话 必填)<br>uname(联系人 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td>添加成功后系统已自动设置该地址为默认地址</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/order/addup?userid=xxx&token=xxx&addressid=xxx&provinceid=xxx&cityid=xxx&countryid=xxx&address=xxx&utel=xxx&uname=xxx" target="_blank">api/order/addup</a></td>
+			<td>更新收货地址<sup> 0922</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>addressid(地址id 必填)<br>provinceid(省份id 必填)<br>cityid(城市id 必填)<br>countryid(区域id 必填)<br>address(详细地址 必填)<br>utel(联系电话 必填)<br>uname(联系人 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td>更新成功后系统已自动设置该地址为默认地址</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/order/adddel?userid=xxx&token=xxx&addressid=xxx" target="_blank">api/order/adddel</a></td>
+			<td>删除收货地址<sup> 0922</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>addressid(地址id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/order/adddefault?userid=xxx&token=xxx&addressid=xxx" target="_blank">api/order/adddefault</a></td>
+			<td>设置默认地址<sup> 0922</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>addressid(地址id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td></td>
+		</tr>
+
+		<tr>
+			<td></td>
+			<td><a href="api/order/shoptopay?userid=xxx&token=xxx&allkey[]=xxx" target="_blank">api/order/shoptopay</a></td>
+			<td>购物车(直接)购买<sup> 0929</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>allkey[](商品参数 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":{"out_trade_no":"订单号","subject":"标题","body":"内容","total_fee":"价钱"}}
+			</td>
+			<td>allkey[]为数组形式参数多个商品可传递多个allkey[]<br>allkey[]规则为 商品id,购买数量,商品类型<br>exp:userid=1&token=xxx<br>&allkey[]=2,2,dress<br>&allkey[]=1,1,market</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/order/ordertopay?userid=xxx&token=xxx&tradenum=xxx" target="_blank">api/order/ordertopay</a></td>
+			<td>订单购买<sup> 0930</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>tradenum(订单号 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":{"out_trade_no":"订单号","subject":"标题","body":"内容","total_fee":"价钱"}}
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/order/myorder?userid=xxx&token=xxx&pageid=xxx" target="_blank">api/order/myorder</a></td>
+			<td>订单列表<sup> 0930</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>pageid(分页id 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"companyid":"店铺id","ctel":"店铺电话","companyname":"店铺名称","createtime":"下单时间","paytime":"支付时间","tradenum":"订单号","uname":"收货人","utel":"收货电话","address":"收货地址","allprice":"订单金额","postprice":"邮费","status":"订单状态","plist":[{"productid":"商品id","companyid":"店铺id","nprice":"商品单价","buynum":"购买数量","title":"商品标题","picture":"商品图片","type":"商品类型"},{...}]},{...}]}
+			</td>
+			<td>分页获取<br>status订单状态码:0未支付1已支付<br>无订单详情接口此接口已返回全部数据</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/order/orderdel?userid=xxx&token=xxx&tradenum=xxx" target="_blank">api/order/orderdel</a></td>
+			<td>删除订单<sup> 0930</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>tradenum(订单号 必填)</td>
+			<td>{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[空数组]}
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><a href="api/order/messagelist?userid=xxx&token=xxx&pageid=xxx" target="_blank">api/order/messagelist</a></td>
+			<td>我的消息<sup> 0930</sup></td>
+			<td>userid(用户id 必填)<br>token(用户令牌 必填)<br>pageid(分页id 必填)</td>
+			<td>
+				{"status":"1001","message":"错误描述","data":[空数组]}<br/><br>
+				{"status":"1000","message":"成功","data":[{"title":"消息标题","picture":"消息图片","note":"消息内容"},{...}]}
+			</td>
+			<td>分页获取</td>
+		</tr> -->
+
+
+	</tbody>
+</table>
+</div>
+</html>

@@ -1,0 +1,140 @@
+	.mui-plus .plus {
+		display: inline;
+	}
+	
+	.plus {
+		display: none;
+	}
+	
+	#topPopover {
+		position: fixed;
+		top: 16px;
+		right: 6px;
+	}
+	
+	#topPopover .mui-popover-arrow {
+		left: auto;
+		right: 6px;
+	}
+	
+	p {
+		text-indent: 22px;
+	}
+	
+	span.mui-icon {
+		font-size: 14px;
+		color: #007aff;
+		margin-left: -15px;
+		padding-right: 10px;
+	}
+	
+	.mui-popover {
+		height: 300px;
+	}
+	
+	.mui-content {
+		padding: 10px;
+	}
+	
+	.bank {
+		font-size: 11pt;
+		color: #fff !important;
+		padding-top: -5px !important;
+	}
+	
+	.mui-title {
+		font-size: 13pt;
+		color: #fff !important;
+	}
+	
+	header {
+		background: #1a1a1f !important;
+	}
+	
+	.mui-icon {
+		color: #fff !important;
+	}
+	
+	.lun {
+		color: #fff;
+		margin-left: 37px;
+		margin-top: -36px;
+		background: #fe9d0d;
+		/*border-bottom:1px solid red;*/
+		width: 100px;
+	}
+	
+	.lun span {
+		border-bottom: 1px solid #FFF;
+	}
+	
+	.mui-table-view-cell .mui-active {
+		background: #fe9d0d;
+	}
+	
+	.mui-content {
+		background: #efeff4;
+		padding: 0;
+	}
+	
+	#slider {
+		background: #f7f7f8;
+	}
+	
+	.mui-content-padded h5 {
+		margin-top: 40px;
+		margin-left: 10px;
+		margin-bottom: 10px;
+	}
+	
+	.duihuan {
+		color: #FE9D0D
+	}
+	
+	.mui-btn {
+		background: #ff6600;
+		padding: 6px !important;
+		margin-top: 5px;
+		margin-right: 10px;
+		color: #fff;
+	}
+	
+	label img {
+		width: 60px !important;
+		height: 25px;
+		margin-left: 30px;
+		margin-top: -5px;
+	}
+	
+	.exchange {
+		/*				border:1px solid red;*/
+		width: 90px !important;
+		/*margin-left:30px;*/
+		color: #000;
+		margin-left: 30px;
+	}
+	
+	#row {
+		position: relative;
+	}
+	
+	#pic {
+		width: 20px;
+		left: 15px;
+		top: 12px;
+		position: absolute;
+	}
+	
+	.mui-table-view-cell {
+		position: relative;
+	}
+	
+	.mui-table-view-cell img {
+		position: absolute;
+		width: 30px;
+		top: 6px;
+	}
+	
+	.mui-navigate-right span {
+		margin-left: 35px;
+	}

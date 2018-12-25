@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>综合应用管理平台</title>
+   <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/css/css.css">
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.4.js"></script>
+	<script src="__PUBLIC__/layer/layer.js"></script> 
+	<script type="text/javascript" src="__PUBLIC__/easyui1.3/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/public.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/date.js"></script>
+	<script charset="utf-8" src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+	<script charset="utf-8" src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/checkform.js"></script>
+	<script>
+	var editor;
+	var n = 0;
+	KindEditor.ready(function(K) {
+	
+		
+		$('#myform').form({
+			url:'/admin/merchant/saveadd',
+			onSubmit: function(){
+				$fly.load();
+			},
+			success:function(data){
+				$fly.disload();
+				parent.$('#mytable').datagrid('reload');
+				if (data == 'success') {
+					$fly.msg('添加成功');
+					parent.layer.closeAll();
+				} else{
+					$fly.msg(data);
+				}
+			}
+		});
+	});
+	
+	</script>
+	<script type="text/javascript">
+	$.extend($.fn.validatebox.defaults.rules, {    
+		phoneNum: { //验证手机号   
+			validator: function(value, param){ 
+			 return /^1[3-8]+\d{9}$/.test(value);
+			},    
+			message: '请输入正确的手机号码。'   
+		},
+		
+		telNum:{ //既验证手机号，又验证座机号
+		  validator: function(value, param){ 
+			  return /(^(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$)|(^((\d3)|(\d{3}\-))?(1[358]\d{9})$)/.test(value);
+			 },    
+			 message: '请输入正确的电话号码。' 
+		}  
+	});
+	</script>
+</head>
+<body>
+<form id="myform" name="myform" method="post" action="" enctype="multipart/form-data">
+  <table width="99%" border="0" align="center" cellpadding="5" cellspacing="1" bgcolor="#F5F5F5">
+
+    <tr><td width="11%" align="right" bgcolor="#FFFFFF">商户号：</td><td width="89%" bgcolor="#FFFFFF"><input name="merchantnum" type="text" id="merchantnum" size="64" class="easyui-validatebox" required="true" validType="length[0,64]"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">商户名称：</td><td width="89%" bgcolor="#FFFFFF"><input name="name" type="text" id="name" size="64" class="easyui-validatebox" required="true" validType="length[0,64]"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">商户全称：</td><td width="89%" bgcolor="#FFFFFF"><input name="fullname" type="text" id="fullname" size="80" class="easyui-validatebox" required="true" validType="length[0,256]"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">商户地址：</td><td width="89%" bgcolor="#FFFFFF"><input name="address" type="text" id="address" size="80" class="easyui-validatebox" required="true" validType="length[0,256]"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">电话：</td><td width="89%" bgcolor="#FFFFFF"><input name="phone" type="text" id="phone" size="64" class="easyui-validatebox" required="true" validType="length[0,64]"  data-options="prompt:'请输入正确的手机号码。',validType:'phoneNum'"/></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">座机：</td><td width="89%" bgcolor="#FFFFFF"><input name="landline" type="text" id="landline" size="64"   /></td></tr>
+	
+	<!--<tr><td width="11%" align="right" bgcolor="#FFFFFF">坐标：</td><td width="89%" bgcolor="#FFFFFF"><input name="coordinate" type="text" id="coordinate" size="64"   /></td></tr>-->
+	<tr><td width="11%" align="right" bgcolor="#FFFFFF">商家类别：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $c2;?></td></tr>
+	<!--<tr><td width="11%" align="right" bgcolor="#FFFFFF">商家规模：</td><td width="89%" bgcolor="#FFFFFF"><input name="scale" type="text" id="scale" size="64"   /></td></tr>-->
+	<tr><td width="11%" align="right" bgcolor="#FFFFFF">商家简介：</td><td width="89%" bgcolor="#FFFFFF"><textarea name="introduction" cols="80" rows="8"  id="introduction"></textarea></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">商户状态：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $c7;?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">余额：</td><td width="89%" bgcolor="#FFFFFF"><input name="balance" type="text" id="balance" size=""   /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">总额：</td><td width="89%" bgcolor="#FFFFFF"><input name="total" type="text" id="total" size=""   /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">运营状态：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $c13;?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">商户logo：</td><td width="89%" bgcolor="#FFFFFF"><input name="logo" id="logo" type="file"></td></tr>
+    
+    <tr>
+      <td colspan="2" align="center" bgcolor="#FFFFFF"><input name="提交" type="submit" value="提交" class="submit">
+        <input type="reset" name="Submit2" value="重置" class="submit" />	
+		<input type="button" name="Submit" value="关闭" onClick="parent.layer.closeAll();" class="submit" />
+				</td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>	

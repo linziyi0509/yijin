@@ -1,0 +1,196 @@
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			.bank {
+				font-size: 11pt;
+				color: #fff !important;
+				padding-top: -5px !important;
+				/*margin-left:px;*/
+			}
+			
+			.mui-title {
+				font-size: 18px;
+				color: red !important;
+			}
+			
+			header {
+				background: #0192ed !important;
+			}
+			
+			.history {
+				font-size: 18px !important;
+				color: #fff !important;
+				margin-top: 5px;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			
+			.oa-contact-cell.mui-table .mui-table-cell {
+				padding: 11px 0;
+				vertical-align: middle;
+			}
+			
+			.oa-contact-cell {
+				position: relative;
+				margin: -11px 0;
+			}
+			
+			.oa-contact-avatar {
+				width: 75px;
+			}
+			
+			.oa-contact-avatar img {
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+			}
+			
+			.oa-contact-content {
+				width: 100%;
+			}
+			
+			.oa-contact-name {
+				margin-right: 20px;
+				font-size: 12pt !important;
+			}
+			
+			.oa-contact-name,
+			oa-contact-position {
+				float: left;
+			}
+			
+			.oa-contact-position {
+				font-size: 14pt;
+				margin-left: -15px;
+				color: #FE9D0D;
+			}
+			
+			#mui-btn {
+				margin-top: -45px;
+				background: #FE9D0D;
+				color: #fff;
+				border-radius: 5px;
+			}
+			
+			h5 {
+				padding-top: 8px;
+				padding-bottom: 8px;
+				text-indent: 12px;
+			}
+			
+			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body {
+				font-size: 15px;
+				margin-top: 8px;
+				color: #333;
+			}
+			
+			.mui-col-xs-4 {
+				border: 1px solid #eeeeee;
+			}
+			
+			.mui-col-xs-3 {
+				border: 1px solid #eeeeee;
+			}
+			
+			.mui-col-xs-6 {
+				border: 1px solid #eeeeee;
+			}
+			
+			.mui-active:hover {
+				background: #FE9D0D !important;
+			}
+			
+			.mui-col-xs-4 img {
+				width: 50px !important;
+				height: 70px !important;
+				margin-left: -15px;
+			}
+			
+			.mui-col-xs-4 p {
+				margin-left: -15px;
+			}
+			
+			.mui-table-view.mui-grid-view {
+				font-size: 0;
+				display: block;
+				width: 100%;
+				padding: 0px;
+				white-space: normal;
+			}
+			
+			.mui-table-view.mui-grid-view .mui-table-view-cell {
+				font-size: 17px;
+				display: inline-block;
+				margin-right: 0px;
+				padding: 10px 0 0 14px;
+				text-align: center;
+				vertical-align: middle;
+				background: 0 0;
+				
+			}
+			
+			.media {
+				font-size: 12pt;
+				color: #000;
+			}
+			
+			#mui-grid-view {
+				margin-top: 10px;
+			}
+			
+			#mui-table-view {
+				margin-top: 10px;
+			}
+			
+			.mui-col-xs-6 {
+				height: 60px;
+			}
+			
+			.mui-col-xs-6 span {
+				margin-top: 10px;
+				font-size: 14pt;
+				color: #FE9D0D;
+			}
+			
+			.mui-input-row {
+				margin-top: 25px;
+			}
+			
+			.mui-input-row input {
+				position: relative;
+				text-indent: 2em;
+			}
+			
+			.mui-input-row img {
+				z-index: 1;
+				position: absolute;
+				left: 20px;
+				top: 10px;
+			}
+			
+			.mui-input-row p {
+				z-index: 1;
+				position: absolute;
+				right: 20px;
+				top: 10px;
+			}
+			
+			#block {
+				margin: 0 auto;
+				width: 90%;
+				text-align: center;
+			}
+			
+			#title {
+				color: #fff !important;
+			}
+			
+			#left {
+				color: #fff;
+			}

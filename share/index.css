@@ -1,0 +1,87 @@
+
+html,body{
+	width: 100%;
+	height: 100%;
+	font-size: 12px;
+	font-family: "黑体";
+}
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	font-size: 1em;
+	background-image: url(img/big_bg.png);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	position: relative;
+}
+.con{
+	width:70%;
+	position: absolute;
+	top:32%;
+	left:15%;
+	
+}
+.tips{
+	line-height: 40px;
+	text-align: center;
+	font-size: 1.3em;
+	margin-bottom: 20px;
+}
+.pic_box{
+	width:100%;
+	overflow: hidden;
+}
+.pic{
+	width:100%;
+	height:100px;
+}
+.pic>div:nth-child(1){
+	float:left;
+}
+.pic>div:nth-child(2){
+	float:right;
+}
+.pic>div>a{
+	display: block;
+	width:100px;
+	height:100px;
+}
+.pic>div>a>img{
+	display: block;
+	width:100%;
+	height:100%;
+}
+.pic>div>span{
+	display: block;
+	width:100%;
+	line-height: 30px;
+	text-align: center;
+	font-size: 1.3em;
+	color:#000;
+	margin-top: 10px;
+}
+.text{
+	width:100%;
+	height:40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 1.6em;
+	font-weight:bold;
+	color:#000;
+}
+.weixin-tip {
+	display: none;
+	text-align: center;
+	background-color: rgba(0, 0, 0, .5);
+	z-index: 100;
+	position: absolute;
+	width: 100%;
+}
+.weixin-tip img {
+	width: 240px;
+	margin-top: 10px;
+	margin-left: 40px;
+}

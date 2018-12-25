@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/step.css">
+    <script src="__PUBLIC__/js/jquery-1.4.2.min.js"></script>
+    <script src="__PUBLIC__/layer2/layer.js"></script>
+</head>
+<body bgcolor="#F5F4F9">
+<h4 class="mui-h4">第二题</h4>
+<img src="__PUBLIC__/images/questionback.gif" />
+<p>假如有车要强行超车抢道或变道到您前方，您通常的做法是？</p>
+<div class="mui-card">
+    <form class="mui-input-group">
+        <input type="hidden" name="policyid" id="policyid" value="{$policyid}"/>
+        <div class="mui-input-row mui-radio">
+            <span>狠踩油门超对方</span>
+            <input type="radio" class="danxuan" name="type" value="1"/>
+        </div>
+        <div class="mui-input-row mui-radio">
+            <span>狂按喇叭或猛闪大灯</span>
+            <input type="radio" class="danxuan" name="type" value="2"/>
+        </div>
+        <div class="mui-input-row mui-radio">
+            <span>心情不爽但保持原有速度</span>
+            <input type="radio" class="danxuan" name="type" value="3"/>
+        </div>
+        <div class="mui-input-row mui-radio">
+            <span>减速以确保安全</span>
+            <input type="radio" class="danxuan" name="type" value="4"/>
+        </div>
+        <!--<div class="mui-input-row mui-radio">
+            <span>什么都不做</span>
+            <input type="radio" class="danxuan" name="type" value="5"/>
+        </div>-->
+    </form>
+</div>
+</body>
+<script>
+    $(document).ready(function(){
+        $('input[name="type"]').click(function(){
+            var type = $("input[name='type']:checked").val();
+            var policyid = $("input[name='policyid']").val();
+            if(type && type>0){
+                location.href="stepthree?policyid="+policyid;
+            }
+        })
+    });
+</script>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="utf-8" />
+		<title>增值服务</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/common.css"/>
+    	<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/style.css"/>
+	</head>
+	<body>
+		<header>
+			<!-- <span>
+				<a href="javascript:;window.history.go(-1)">
+					 <font class="bank">返回</font></a>
+				</a>
+			</span> -->
+			我的增值服务
+		</header>
+		<ul class="nav">
+			<li class="chosen"><span>全部</span></li>
+			<li><span>可使用</span></li>
+			<li><span>已使用</span></li>
+			<li><span>已作废</span></li>
+		</ul>
+		<div class="main">
+			<ul>
+				<!--**全部**-->
+				<li class="show">
+					<foreach name="list.all" item="vo" >
+						<!--*券1*-->
+						<div class="list">
+							<div class="list-top">
+								<span>
+									<i>{$vo.name}</i>
+									<p>{$vo.starttime|date="Y-m-d",###}~{$vo.endtime|date="Y-m-d",###}<br/>
+										使用状态：
+										<if condition="$vo.flag eq '1' ">
+											<b onclick="check({$vo.id})">点击使用</b>
+										</if>
+										<if condition="$vo.flag eq '0'">
+											已使用
+										</if>
+										<if condition="$vo.flag eq '-1'">
+											已过期
+										</if>
+									</p>
+									
+								</span>
+								<span>
+									<i><img src="{$vo.icon}" style = "background:#fff;"/></i>							
+								</span>
+								
+							</div>
+							<div class="xiangqing">
+								<span>点击可查看套餐详情<i><img src="__PUBLIC__/html/css/more.png"/></i></span>
+								<div class="xiangqing_nr">
+									<h1>{$vo.instructions}</h1>
+									<!-- <p>{$vo.instructions}</p> -->
+								</div>
+							</div>
+						</div>
+						<!-- <p class="zanwu">暂无数据</p> -->
+					</foreach>
+				</li>
+				<!--**可使用**-->
+				<li>
+					<foreach name="list.usedCode" item="vo" >
+						<!--*券1*-->
+						<div class="list" onclick="check({$vo.id})">
+							<div class="list-top">
+								<span>
+									<i>{$vo.name}</i>
+									<p>
+										{$vo.starttime|date="Y-m-d",###}~{$vo.endtime|date="Y-m-d",###}<br/>
+										使用状态：<b>点击使用</b>
+									</p>
+								</span>
+								<span>
+									<i><img src="{$vo.icon}" style = "background:#fff;"/></i>		
+								</span>
+							</div>
+							<div class="xiangqing">
+								<span>点击可查看套餐详情<i><img src="__PUBLIC__/html/css/more.png"/></i></span>
+								<div class="xiangqing_nr">
+									<h1>{$vo.instructions}</h1>
+									<!-- <h1>具体内容：</h1>
+									<p>{$vo.instructions}</p> -->
+								</div>
+							</div>
+						</div>
+						<!--<p class="zanwu">暂无数据</p>-->
+					</foreach>
+				</li>
+				<!--**已使用**-->
+				<li>
+					<foreach name="list.useCode" item="vo" >
+						<!--*券1*-->
+						<div class="list" onclick="sel({$vo.id})">
+							<div class="list-top" >
+								<span>
+									<i>{$vo.name}</i>
+									<p>
+										{$vo.starttime|date="Y-m-d",###}~{$vo.endtime|date="Y-m-d",###}<br/>
+										使用状态：已使用
+									</p>
+								</span>
+								<span>
+									<i><img src="{$vo.icon}" style = "background:#fff;"/></i>		
+								</span>
+							</div>
+							<div class="xiangqing">
+								<span>点击可查看套餐详情<i><img src="__PUBLIC__/html/css/more.png"/></i></span>
+								<div class="xiangqing_nr">
+									<h1>{$vo.instructions}</h1>
+								</div>
+							</div>
+						</div>
+						<!--<p class="zanwu">暂无数据</p>-->
+					</foreach>
+				</li>
+				<!--**已作废**-->
+				<li>
+					<foreach name="list.overCode" item="vo" >
+						<!--*券1*-->
+						<div class="list">
+							<div class="list-top">
+								<span>
+									<i>{$vo.name}</i>
+									<p>{$vo.starttime|date="Y-m-d",###}~{$vo.endtime|date="Y-m-d",###}<br/>
+										使用状态：已使用
+									</p>
+								</span>
+								<span><i><img src="{$vo.icon}" style = "background:#fff;"/></i>		</span>
+							</div>
+							<div class="xiangqing">
+								<span>点击可查看套餐详情<i><img src="__PUBLIC__/html/css/more.png"/></i></span>
+								<div class="xiangqing_nr">
+									<h1>{$vo.instructions}</h1>
+								</div>
+							</div>
+						</div>
+						<!--<p class="zanwu" >暂无数据</p>-->
+					</foreach>
+				</li>
+			</ul>
+		</div>
+		
+	</body>
+	<script type="text/javascript" src="__PUBLIC__/html/js/jquery-1.11.0.js" ></script>
+	<script type="text/javascript" src="__PUBLIC__/html/js/index.js" ></script>
+	<script src="__PUBLIC__/layer2/layer.js"></script>
+	<script type="text/javascript">
+	function check (id) {
+		layer.confirm('确定使用该服务吗?', {icon: 3, title:'提示'}, function(index){
+			$.post("{:U('Scan/lst')}", { id: id},
+			function(data){
+				if (data.code== 200) {
+					layer.alert(data.codes+"<br/><br/><a href='"+data.url+"' style='color:FF0033'>进入服务商使用</a>", {
+					  skin: 'layui-layer-molv' //样式类名 自定义样式
+					  ,closeBtn: 1  // 是否显示关闭按钮
+					  ,anim: 1 //动画类型
+					  ,icon: 6  
+					  ,title:'服务兑换码'
+					});	
+					//location.reload();
+				}else{
+				//layer.alert(data.string,{icon: 2});
+			   }
+			});
+		});
+	}
+	
+	function sel(id) {
+		$.post("{:U('Scan/getFind')}", { id: id},
+		function(data){
+		    if (data.code == null) {
+		    	layer.alert("该服务券已在其他地方使用", {
+				  skin: 'layui-layer-molv' //样式类名 自定义样式
+				  ,closeBtn: 2  // 是否显示关闭按钮
+				  ,anim: 2 //动画类型
+				  ,icon: 6  
+				  ,title:'服务兑换码'
+			  	});
+		    }else{
+		    	layer.alert(data.code+"<br/><br/><a href='"+data.url+"' style='color:FF0033'>进入服务商使用</a>", {
+				  skin: 'layui-layer-molv' //样式类名 自定义样式
+				  ,closeBtn: 2  // 是否显示关闭按钮
+				  ,anim: 1 //动画类型
+				  ,icon: 6  
+				  ,title:'服务兑换码'
+			  	});
+		    }
+		    
+		});
+	}
+	</script>
+</html>

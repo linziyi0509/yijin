@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>综合应用管理平台</title>
+   <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/css/css.css">
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.4.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/easyui1.3/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/public.js"></script>
+</head>
+<body>
+<form id="myform" name="myform" method="post" action="">
+  <table width="99%" border="0" align="center" cellpadding="5" cellspacing="1" bgcolor="#F5F5F5">
+    
+    <tr><td width="11%" align="right" bgcolor="#FFFFFF">用户标识：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['openid'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">用户昵称：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['nickname'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">性别：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['sex'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">城市：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['city'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">省份：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['province'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">国家：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['country'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">语言：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['language'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">用户头像：</td><td width="89%" bgcolor="#FFFFFF"><img src="<?php echo $result['headimgurl'];?>" width="100"></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">关注时间：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['subscribe_time'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">是否关注：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['subscribe'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">手机号：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['phone'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">邮箱：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['email'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">积分：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['credits'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">是否禁用：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $c16;?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">是否激活：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $c19;?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">创建时间：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['createtime'];?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">修改时间：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $result['updatetime'];?></td></tr>
+    
+    <tr>
+      <td colspan="2" align="center" bgcolor="#FFFFFF"><input type="button" name="Submit" value="关闭" onclick="parent.layer.closeAll();" class="submit" /></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>	

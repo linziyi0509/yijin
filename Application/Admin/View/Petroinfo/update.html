@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>综合应用管理平台</title>
+   <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/css/css.css">
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.4.js"></script>
+	<script src="__PUBLIC__/layer/layer.js"></script> 
+	<script type="text/javascript" src="__PUBLIC__/easyui1.3/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/public.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/date.js"></script>
+	<script charset="utf-8" src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+	<script charset="utf-8" src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/checkform.js"></script>
+	<script>
+	var editor;
+	var n = 0;
+	KindEditor.ready(function(K) {
+	
+		
+		$('#myform').form({
+			url:'/admin/petroinfo/saveupdate',
+			onSubmit: function(){
+				$fly.load();
+			},
+			success:function(data){
+				$fly.disload();
+				parent.$('#mytable').datagrid('reload');
+				if (data == 'success') {
+					$fly.msg('修改成功');
+					parent.layer.closeAll();
+				} else{
+					$fly.msg(data);
+				}
+			}
+		});
+	});
+	
+	</script>
+</head>
+<body>
+<form id="myform" name="myform" method="post" action="" enctype="multipart/form-data">
+  <table width="99%" border="0" align="center" cellpadding="5" cellspacing="1" bgcolor="#F5F5F5">
+    
+    <tr><td width="11%" align="right" bgcolor="#FFFFFF">券编号：</td><td width="89%" bgcolor="#FFFFFF"><input name="typecode" type="text" id="typecode" size="32" value="<?php echo $result['typecode'];?>"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">校验码：</td><td width="89%" bgcolor="#FFFFFF"><input name="checkcode" type="text" id="checkcode" size="16" value="<?php echo $result['checkcode'];?>"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">券类名称：</td><td width="89%" bgcolor="#FFFFFF"><input name="typetitle" type="text" id="typetitle" size="32" value="<?php echo $result['typetitle'];?>"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">券面额类型：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $c84;?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">加油券面值：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $c81;?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">生效时间：</td><td width="89%" bgcolor="#FFFFFF"><input name="enabletime" type="text" id="enabletime" size="20" value="<?php echo $result['enabletime'];?>" onclick="SelectDate(this,'yyyy-MM-dd hh:mm:ss')"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">失效时间：</td><td width="89%" bgcolor="#FFFFFF"><input name="disabletime" type="text" id="disabletime" size="20" value="<?php echo $result['disabletime'];?>" onclick="SelectDate(this,'yyyy-MM-dd hh:mm:ss')"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">券图路径：</td><td width="89%" bgcolor="#FFFFFF"><input name="imageurl" type="text" id="imageurl" size="80" value="<?php echo $result['imageurl'];?>"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">券使用说明：</td><td width="89%" bgcolor="#FFFFFF"><input name="usedeclare" type="text" id="usedeclare" size="64" value="<?php echo $result['usedeclare'];?>"  /></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">使用状态：</td><td width="89%" bgcolor="#FFFFFF"><?php echo $c31;?></td></tr><tr><td width="11%" align="right" bgcolor="#FFFFFF">券类型：</td><td width="89%" bgcolor="#FFFFFF"><input name="vouchertype" type="text" id="vouchertype" size="64" value="<?php echo $result['vouchertype'];?>"  /></td></tr>
+    
+    <tr>
+      <td colspan="2" align="center" bgcolor="#FFFFFF"><input id="id" name="id" type="hidden"  value="<?php echo $result['id'];?>"><input name="提交" type="submit" value="提交" class="submit">
+        <input type="reset" name="Submit2" value="重置" class="submit" />
+        <input type="button" name="Submit" value="关闭" onClick="parent.layer.closeAll();" class="submit" /></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>	

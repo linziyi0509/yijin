@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>保单号兑换中心</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<!--标准mui.css-->
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/style.css"/>
+	<link rel="stylesheet" href="__PUBLIC__/home/css/mui.min.css">
+
+	<style>
+		.mui-plus .plus {
+			display: inline;
+		}
+
+		.plus {
+			display: none;
+		}
+
+		#topPopover {
+			position: fixed;
+			top: 16px;
+			right: 6px;
+		}
+
+		#topPopover .mui-popover-arrow {
+			left: auto;
+			right: 6px;
+		}
+
+		p {
+			text-indent: 22px;
+		}
+
+		span.mui-icon {
+			font-size: 14px;
+			color: #007aff;
+			margin-left: -15px;
+			padding-right: 10px;
+		}
+
+		.mui-popover {
+			height: 300px;
+		}
+
+		.mui-content {
+			padding: 10px;
+		}
+
+		.bank {
+			font-size: 11pt;
+			color: #fff !important;
+			padding-top: -5px !important;
+		}
+
+		.mui-title {
+			font-size: 13pt;
+			color: #fff !important;
+		}
+
+		header {
+			background: #1E90FF !important;
+		}
+
+		.mui-icon {
+			color: #fff !important;
+		}
+
+		.lun {
+			color: #fff;
+			margin-left: 37px;
+			margin-top: -36px;
+			background: #fe9d0d;
+			/*border-bottom:1px solid red;*/
+			width:100px;
+		}
+		.lun span{
+			border-bottom:1px solid #FFF;
+		}
+
+		.mui-table-view-cell .mui-active {
+			background: #fe9d0d;
+		}
+
+		.mui-content {
+			background: #efeff4;
+			padding: 0;
+		}
+		#slider{
+
+			background: #f7f7f8;
+		}
+		.mui-content-padded h5{
+			margin-top:40px;
+			margin-left:10px;
+			margin-bottom:10px;
+		}
+		.duihuan{
+			color:#FE9D0D
+		}
+		.mui-btn{
+			padding:6px !important;
+			margin-top:5px;
+			margin-right:10px;
+			color:#fff;
+		}
+		label img{
+			width:60px !important;
+			height: 25px;
+			margin-left:30px;
+			margin-top:-5px;
+		}
+		.exchange{
+			/*				border:1px solid red;*/
+			width:90px !important;
+			/*margin-left:30px;*/
+			color:#000;
+			margin-left:30px;
+		}
+		#row{
+			position: relative;
+		}
+		#pic{
+			width:20px;
+			left:15px;
+			top:2px;
+			position: absolute;
+		}
+		.mui-table-view-cell{
+			position: relative;
+		}
+		.mui-table-view-cell img{
+			position: absolute;
+			width:28px;
+			top:3px;
+		}
+		.mui-navigate-right span{
+			margin-left:35px;
+		}
+	</style>
+</head>
+
+<body>
+<header class="mui-bar mui-bar-nav" style=" background: #fff;">
+	<!-- <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span class="bank">返回</span></a> -->
+	<h1 class="mui-title">保单号兑换服务</h1>
+
+</header>
+<div class="mui-content">
+	<!-- <div id="slider" class="mui-slider">
+        <div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+            <a class="mui-control-item" href="#item1mobile">
+                <span>兑换中心</span>
+            </a>
+        </div>
+    </div> -->
+	<div class="mui-content-padded" style="margin: 5px;">
+		<!-- <h5>我要兑换</h5> -->
+		<form class="mui-input-group" onsubmit="return false">
+			<div class="mui-input-row">
+				<label class="duihuan mui-h4">兑换区</label>
+			</div>
+
+			<div class="duinum">
+				<div class="mui-input-row">
+					<img src="__PUBLIC__/home/img/8.gif" alt="" id="pic"/>
+					<label class="exchange">保单号</label>
+					<input type="text" class="mui-input-clear" required="" placeholder="请输入保单号">
+					<p style="position: absolute;right: 10px;height: 100%;margin-bottom: 0px;line-height: 40px;text-indent: inherit;cursor:pointer;"></p>
+				</div>
+
+			</div>
+
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item tianjia" href="#item1mobile">
+						<span>点击添加一行</span>
+					</a>
+				</div>
+			</div>
+			<div class="mui-input-row" id="row">
+				<img src="__PUBLIC__/home/img/10.gif" alt="" id="pic"/>
+				<label><img src="{:U('Salesmaninfo/Verify')}" alt="" onclick="this.src='__URL__/verify/'+Math.random()" id="code_img" ></label>
+				<input type="text" id="verify" required=""  class="mui-input-clear" placeholder="请输入验证码">
+			</div>
+			<div class="mui-input-row">
+				<button tepe="button" class="mui-btn mui-btn-blue" style="background:#1E90FF;">领取</button>
+			</div>
+		</form>
+
+		<h5>保单服务</h5>
+		<ul class="mui-table-view mui-table-view-chevron">
+			<li class="mui-table-view-cell">
+				<!--<img src="__PUBLIC__/home/img/12.gif" alt="" />-->
+				<img src="__PUBLIC__/images/ejin.jpg" alt="" style="height:30px;"/>
+				<a href="{:U('Policy/servicepage')}" class="mui-navigate-right"><span>我的服务</span></a></li>
+		</ul>
+	</div>
+</div>
+
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="__PUBLIC__/layer2/layer.js"></script>
+<script>
+	//添加行数
+	$(".tianjia").on('click', function() {
+		event.preventDefault();
+		if ($(".duinum").children().length <=4) {
+			$(".duinum").append('<div class="mui-input-row"><img src="__PUBLIC__/home/img/8.gif" alt="" id="pic"/><label class="exchange">保单号</label><input type="text" class="mui-input-clear" required="" placeholder="请输入保单号"><p class="del" style="position: absolute;right: 10px;height: 100%;margin-bottom: 0px;line-height: 40px;text-indent: inherit;cursor:pointer;">移除</p></div>')
+		}
+	});
+	//删除行数
+	$(".duinum").on('click', '.del', function(event) {
+		event.preventDefault();
+		$(this).parent(".mui-input-row").remove();
+	});
+	//我要总换
+	$(".mui-btn").click(function () {
+		var flag;
+		var data = [];
+		$("input").each(function () {
+			if ($(this).val() == '' ) {
+				flag = false;
+				return false;
+			}
+			data.push($(this).val() );
+		});
+		if (flag == false) {
+			layer.msg('填写信息有空值');
+			return false;
+		}
+		if (data[data.length-1].length != 4 ) {
+			layer.msg('验证码位数不正确');
+			return false;
+		}
+		$.ajax({
+			type: "POST",
+			url: "{:U('Salesmaninfo/exchange')}",
+			data: "id="+data,
+			success: function(msg){
+				$('#code_img').click();
+				if (msg.code == '200') {
+					var really = msg.really;
+					var fake = msg.fake;
+					$("input").each(function ( index ,val) {
+						$.each(really,function (key, va) {
+							if ($(val).val() == really[key] ){
+								$(val).nextAll().remove();
+								var txt1 = '<p style="position: absolute;right: 10px;height: 100%;margin-bottom: 0px;line-height: 40px;text-indent: inherit;cursor:pointer;">成功</p>';
+								$(val).after(txt1);
+							}
+						});
+						$.each(fake,function (key, va) {
+							if ($(val).val() == fake[key] ){
+								$(val).nextAll().remove();
+								var txt1 = '<p style="position: absolute;right: 10px;height: 100%;margin-bottom: 0px;line-height: 40px;text-indent: inherit;cursor:pointer;">失败</p>';
+								$(val).after(txt1);
+							}
+						});
+					});
+					layer.alert(msg.string,{icon: 1},function(index){
+						layer.closeAll();
+						location.reload();
+					});
+
+				}else if(msg.code== 310){
+					layer.alert(msg.string,{icon: 2},function(index){
+						location.href="{:U('User/index')}";
+					});
+				}else{
+					layer.alert(msg.string,{icon: 2});
+				}
+			}
+		});
+
+	})
+</script>
+</body>
+</html>

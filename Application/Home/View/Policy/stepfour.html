@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="__PUBLIC__/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/step.css">
+    <style type="text/css">
+        * {
+            margin: 0 auto;
+            padding: 0;
+            font-size: 0.84rem;
+        }
+        .mui-card {
+            font-size: 14px;
+            overflow: hidden;
+            margin: 30px;
+            border-radius: 2px;
+            background-color: #fff;
+            background-clip: padding-box;
+            box-shadow: 0 1px 2px rgba(0,0,0,0);
+        }
+        .zhu {
+            position: relative;
+        }
+        .zhu p {
+            position: absolute;
+            left: 32%;
+            top: 10%;
+            width: 150px;
+            text-align: left;
+            color: #c73530;
+        }
+        .annuity {
+            position: absolute;
+            top: 50%;
+            width: 70px;
+            height: 32px;
+            background: #1e90ff;
+            color: white;
+            border: none;
+            left: 8%;
+            text-align: center;
+        }
+        .annuity1 {
+            position: absolute;
+            top: 50%;
+            width: 70px;
+            height: 32px;
+            background: white;
+            color: #1e90ff;
+            border: none;
+            right: 8%;
+            border: 1px solid #1e90ff;
+        }
+        .annuity2{
+            position: absolute;
+            top: 50%;
+            margin-left:18%;
+            width: 140px;
+            height: 32px;
+            background: #1e90ff;
+            color: white;
+            border: none;
+            text-align: center;
+            border: 1px solid #1e90ff;
+        }
+    </style>
+    <script src="__PUBLIC__/js/jquery-1.8.3.min.js"></script>
+    <script src="__PUBLIC__/layer2/layer.js"></script>
+</head>
+<body bgcolor="#F5F4F9">
+    <img src="__PUBLIC__/images/questionback.gif" />
+    <p>因您的保单非本人自助办理，请问您是否同意授权营销员代为办理保单的其它权益手续？</p>
+    <div class="mui-card">
+        <input type="text" name="salesmanphone" placeholder="请输入营销员手机员" class="wenzi" style="width:101%;margin-bottom:60px;"/>
+        <button class="annuity" onclick="grantInfo('agree')">同意授权</button>
+        <button class="annuity1" onclick="grantInfo('noagree')">不同意</button>
+    </div>
+</body>
+<script>
+    isshow = "{$data['isshow']}";
+    policyid = "{$data['policyid']}";
+    $(document).ready(function(){
+        if(!isshow){
+            location.href="servicepage";
+        }
+    });
+    function grantInfo(grant){
+        if(grant == 'noagree'){
+            location.href="servicepage";
+        }
+        var salesmanphone = $('input[name="salesmanphone"]').val();
+        if(!/^1[345789]\d{9}$/.test(salesmanphone)){
+            layer.alert('营销员手机号格式有误',{icon: 2});
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "{:U('Policy/grantSales')}",
+            data: {policyid:policyid,grant:grant,salesmanphone:salesmanphone},
+            success: function(msg){
+                if (msg.code == '200') {
+                    layer.alert(msg.string,{icon: 1});
+                    location.href="servicepage";
+                }else{
+                    layer.alert(msg.string,{icon: 2});
+                }
+            }
+        });
+    }
+</script>
+</html>

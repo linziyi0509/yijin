@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>综合应用管理平台</title>
+   <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui1.3/css/css.css">
+	<script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.4.js"></script>
+	<script src="__PUBLIC__/layer/layer.js"></script> 
+	<script type="text/javascript" src="__PUBLIC__/easyui1.3/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/public.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/checkform.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/sanji/location.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/sanji/area.js"></script>
+
+	<script>
+	$(function(){
+        initCombobox('operatemerchantid');
+		$('#myform').form({
+			url:'/admin/admin/saveadd',
+			onSubmit: function(){
+				return $(this).form('validate');
+				$fly.load();
+			},
+			success:function(data){
+				$fly.disload();
+				parent.$('#mytable').datagrid('reload');
+				if (data == 'success') {
+					$fly.msg('添加成功');
+                    parent.layer.closeAll();
+				} else{
+					$fly.msg(data);
+				}
+			}
+		});
+	    showLocation();
+	});
+    function initCombobox(id) {
+        var value = "";
+        //加载下拉框复选框
+        $('#' + id).combobox({
+            url: '/admin/admin/getMerchantInfo', //后台获取下拉框数据的url
+            method: 'post',
+            panelHeight: 200,//设置为固定高度，combobox出现竖直滚动条
+            valueField: 'id',
+            textField: 'name',
+            multiple: true,
+            formatter: function (row) { //formatter方法就是实现了在每个下拉选项前面增加checkbox框的方法
+                var opts = $(this).combobox('options');
+                return row[opts.textField];
+            },
+            onLoadSuccess: function () {  //下拉框数据加载成功调用
+                var opts = $(this).combobox('options');
+                var target = this;
+                var values = $(target).combobox('getValues');//获取选中的值的values
+                $.map(values, function (value) {
+                    var el = opts.finder.getEl(target, value);
+                    el.find('input.combobox-checkbox')._propAttr('checked', true);
+                })
+            },
+            onSelect: function (row) { //选中一个选项时调用
+                var opts = $(this).combobox('options');
+                //获取选中的值的values
+                $("#" + id).val($(this).combobox('getValues'));
+
+                //设置选中值所对应的复选框为选中状态
+                var el = opts.finder.getEl(this, row[opts.valueField]);
+                el.find('input.combobox-checkbox')._propAttr('checked', true);
+            },
+            onUnselect: function (row) { //不选中一个选项时调用
+                var opts = $(this).combobox('options');
+                //获取选中的值的values
+                $("#" + id).val($(this).combobox('getValues'));
+                var el = opts.finder.getEl(this, row[opts.valueField]);
+                el.find('input.combobox-checkbox')._propAttr('checked', false);
+            }
+        })/*
+        $('#'+id).combobox('setValues',[1,2,3]);
+        var data = $('#'+id).combobox('getValues');
+        console.log(data);
+        if (data.length > 0) {
+            $('#'+id).combobox('select',[9]);
+            $('#'+id).combobox('select',[10]);
+        }*/
+    }
+    </script>
+</head>
+<body>
+<form id="myform" name="myform" method="post" action="" enctype="multipart/form-data">
+  <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#F5F5F5">
+    <tr>
+      <td width="16%" align="right" bgcolor="#FFFFFF">用户名：</td>
+      <td width="84%" bgcolor="#FFFFFF">
+      	<input autocomplete="off" name="username" type="text" class="easyui-validatebox" id="username" size="35" required="true" />
+      	<input name="parentid" type="hidden" id="parentid" value="<?=$_SESSION['id']?>" />
+      </td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#FFFFFF">密码：</td>
+      <td bgcolor="#FFFFFF"><input autocomplete="off" name="password" type="password" class="easyui-validatebox" id="password" size="35" required="true" /></td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#FFFFFF">确认密码：</td>
+      <td bgcolor="#FFFFFF"><input autocomplete="off" name="password2" type="password" class="easyui-validatebox" id="password2" size="35"  required="true" validType="xiangtong['password']" /></td>
+    </tr>
+    <!--<tr>
+      <td align="right" bgcolor="#FFFFFF">商户名：</td>
+      <td bgcolor="#FFFFFF"><input autocomplete="off" name="name" type="text" class="easyui-validatebox" id="name" size="35" required="true" /></td>
+    </tr>-->
+    <tr>
+      <td align="right" bgcolor="#FFFFFF">分组：</td>
+      <td bgcolor="#FFFFFF">
+          <select name="groupid" id="groupid" class="easyui-validatebox" required="true">
+              <option value="">---请选择---</option>
+              <?php
+        foreach($grouplist as $key=>$val){
+              ?>
+              <option value="<?=$val['id']?>"><?=$val["gname"]?></option>
+              <?php
+        }
+    ?>
+          </select>
+      </td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#FFFFFF">姓名：</td>
+      <td bgcolor="#FFFFFF"><input autocomplete="off" name="name" type="text" class="easyui-validatebox" id="name" size="35" required="true" /></td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#FFFFFF">所属商户：</td>
+      <td bgcolor="#FFFFFF">
+          <select name="merchantid" id="merchantid" class="easyui-validatebox" required="true">
+              <option value="">---请选择---</option>
+              <?php
+        foreach($merchantlist as $key=>$val){
+              ?>
+              <option value="<?=$val['id']?>"><?=$val["name"]?></option>
+              <?php
+        }
+        ?>
+          </select>
+      </td>
+    </tr>
+    <!--<tr>
+      <td align="right" bgcolor="#FFFFFF">可操作商户：</td>
+      <td bgcolor="#FFFFFF">
+              <?php
+                foreach($merchantlist as $key=>$val){
+                      ?>
+                      <input type="checkbox" name="operatemerchantid[]" id="operatemerchantid" value="<?=$val['id']?>"/><?=$val["name"]?>
+                      <?php
+                }
+        ?>
+      </td>
+    </tr>-->
+    <tr>
+        <td align="right" bgcolor="#FFFFFF">可操作商户：</td>
+        <td bgcolor="#FFFFFF">
+            <input class="easyui-combobox" id="operatemerchantid" name="operatemerchantid"/>
+        </td>
+    </tr>
+    <tr>
+    <!--<tr>
+      <td align="right" bgcolor="#FFFFFF">商户地址：</td>
+      <td bgcolor="#FFFFFF">
+      	<select name="provinceid" id="loc_province"></select>&nbsp;&nbsp;
+      	<select name="cityid" id="loc_city"></select>&nbsp;&nbsp;
+      	<select name="countryid" id="loc_town"></select>
+      	&nbsp;&nbsp;&nbsp;<input autocomplete="off" name="address" type="text" class="easyui-validatebox" id="address" size="35" required="true" />
+      </td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#FFFFFF">地址坐标：</td>
+      <td bgcolor="#FFFFFF">
+      	纬度：<input autocomplete="off" name="lat" type="text" class="easyui-validatebox" id="lat" size="7" required="true" />
+      	经度：<input autocomplete="off" name="lng" type="text" class="easyui-validatebox" id="lng" size="7" required="true" />&nbsp;&nbsp;&nbsp;<a href="http://code.autonavi.com/LngLatPicker" target="_blank">点击获取坐标</a>
+      </td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#FFFFFF">商户logo：</td>
+      <td bgcolor="#FFFFFF"><input name="logo" id="logo" type="file" /></td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#FFFFFF">商户大图：</td>
+      <td bgcolor="#FFFFFF"><input name="picture" id="picture" type="file" /></td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#FFFFFF">商户星级：</td>
+      <td bgcolor="#FFFFFF"><input autocomplete="off" name="star" type="text" class="easyui-validatebox" id="star" size="10" required="true" /></td>
+    </tr>-->
+    <tr>
+      <td align="right" bgcolor="#FFFFFF">联系电话：</td>
+      <td bgcolor="#FFFFFF"><input autocomplete="off" name="tel" type="text" class="easyui-validatebox" id="tel" size="10" required="true" /></td>
+    </tr>
+    <!--<tr>
+      <td align="right" bgcolor="#FFFFFF">折扣程度：</td>
+      <td bgcolor="#FFFFFF"><input autocomplete="off" name="discount" type="text" class="easyui-validatebox" id="discount" size="10" required="true" /></td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#FFFFFF">美食商户勾选：</td>
+      <td bgcolor="#FFFFFF">
+      	<volist name="catelist" id="cv">
+      	<label style="float:left; padding:5px;">
+        	<input name="cateid[]" type="checkbox" id="cateid" value="{$cv.id}" />{$cv.name}
+        </label>
+        </volist>
+      </td>
+    </tr>
+    <tr>
+      <td align="right" bgcolor="#FFFFFF">美食商户勾选：</td>
+      <td bgcolor="#FFFFFF">
+      	<label style="float:left; padding:5px;">
+        	<input name="typeid[]" type="checkbox" id="typeid" value="1" />优惠商户
+        </label>
+        <label style="float:left; padding:5px;">
+        	<input name="typeid[]" type="checkbox" id="typeid" value="2" />外卖商户
+        </label>
+        <label style="float:left; padding:5px;">
+        	<input name="typeid[]" type="checkbox" id="typeid" value="3" />预定商户
+        </label>
+      </td>
+    </tr>-->
+    
+    <tr>
+      <td colspan="2" align="center" bgcolor="#FFFFFF"><input name="提交" type="submit" value="提交" class="submit">
+        <input type="reset" name="Submit2" value="重置" class="submit" />	
+		<!--<input type="button" name="Submit3" value="刷新本页" onclick="location.reload();" /> -->
+		<input type="button" class="submit" name="Submit" value="关闭" onClick="parent.layer.closeAll();" />				</td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>	
